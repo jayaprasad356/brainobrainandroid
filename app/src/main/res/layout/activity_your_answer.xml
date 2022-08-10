@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".YourAnswerActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/border1">
+
+
+        <TextView
+            android:id="@+id/tvTitlelogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dp"
+            android:text="BRAINO BRAIN"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llprclevelsectionsvisual1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F6F1F1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Practices >">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Level >">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Sections">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" > Visual"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+        </TextView>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/questxt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llprclevelsectionsvisual1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Question 1 of 10"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/quesprog1"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questxt1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="25dp"
+            android:progress="20"
+            android:theme="@style/ProgressBarTheme"
+            />
+    <EditText
+        android:id="@+id/code"
+        android:layout_below="@+id/quesprog1"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:hint="Your Answer Here"
+        android:background="@drawable/border6"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="start"
+        android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border8"
+            android:paddingHorizontal="25dp"
+            android:text="Submit"
+            android:layout_gravity="center_horizontal"
+            />
+
+
+    </LinearLayout>
+
+
+    <com.konaire.numerickeyboard.NumericKeyboard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        app:field="@+id/code"
+        app:keyTextColor="@color/primaryColor" />
+
+
+</RelativeLayout>

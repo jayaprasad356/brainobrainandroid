@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+    
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        >
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tilte_logo"
+            android:layout_marginTop="100dp"
+            android:layout_margin="40dp"
+            />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_margin="5dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold">
+        </TextView>
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="7dp"
+            android:hint="User Name"
+            android:padding="14dp"></EditText>
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:inputType="textPassword"
+            android:padding="14dp"
+            android:hint="Password"
+            android:drawableStart="@drawable/ic_lock"
+            android:background="@drawable/border"
+            android:drawablePadding="7dp"
+            android:backgroundTint="#07000000">
+        </EditText>
+
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password"
+            android:gravity="right"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/primaryColor"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frgtpass"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="14dp"
+            android:text="Login" />
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

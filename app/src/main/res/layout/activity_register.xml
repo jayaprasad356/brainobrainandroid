@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:drawableStart="@drawable/ic_baseline_arrow_back_">
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/llreg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reg"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="7dp"
+            android:hint="Full Name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_parent"
+            android:drawablePadding="7dp"
+            android:hint="Parent Name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="7dp"
+            android:hint="User Name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="7dp"
+            android:hint="E-mail"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="7dp"
+            android:hint="Password"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#07000000"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="7dp"
+            android:hint="Confirm Password"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llreg"
+        android:text="Register"
+        android:layout_margin="15dp"/>
+</RelativeLayout>

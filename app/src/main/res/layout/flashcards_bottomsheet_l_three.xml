@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/tvVisualview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border5"
+        android:padding="10dp"
+        android:layout_marginEnd="25dp"
+        android:text="Visual"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvOralView"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border13"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:text="Oral"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llOralvisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp"
+            android:weightSum="2"
+            android:visibility="gone"
+            >
+
+            <RelativeLayout
+                android:id="@+id/rlManoral"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border4"
+                android:layout_marginRight="10dp"
+                android:padding="20dp"
+                >
+
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/man"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlWomanoral"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/border12"
+                android:padding="20dp"
+                >
+
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/woman"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:valueFrom="0"
+        android:value="1"
+        android:valueTo="5"
+        android:stepSize="1"
+        app:thumbColor="@color/primaryColor"
+        app:thumbStrokeColor="@color/grayColor"
+        app:haloColor="@color/primaryColor"
+        />
+    <LinearLayout
+        android:id="@+id/lltimeinsec"
+        android:layout_below="@+id/slider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time "
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tvSec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In sec"
+            android:textStyle="bold"
+            android:textColor="@color/secondaryColor"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStartvisual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border6"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Start"
+            android:textColor="#0568cc"
+            android:textSize="22dp"
+            />
+
+        <TextView
+            android:id="@+id/tvStartOral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border6"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Start"
+            android:textColor="#0568cc"
+            android:textSize="22dp"
+            android:visibility="gone"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
