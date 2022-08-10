@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class PractiseSectionFragment extends Fragment {
     SectionAdapter sectionAdapter;
     String Level,Id;
     Session session;
+    SwipeRefreshLayout swipe;
     public PractiseSectionFragment() {
         // Required empty public constructor
     }
@@ -50,9 +52,17 @@ public class PractiseSectionFragment extends Fragment {
         session = new Session(activity);
         Level = session.getData(Constant.LEVEL);
         Id = getArguments().getString(Constant.ID);
+        swipe = root.findViewById(R.id.swipe);
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises><b>"+Level+"</b> "));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sectionList();
+
+            }
+        });
         sectionList();
         return root;
     }
@@ -66,6 +76,7 @@ public class PractiseSectionFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        swipe.setRefreshing(false);
                         JSONObject object = new JSONObject(response);
                         JSONArray jsonArray = object.getJSONArray(Constant.DATA);
                         Gson g = new Gson();

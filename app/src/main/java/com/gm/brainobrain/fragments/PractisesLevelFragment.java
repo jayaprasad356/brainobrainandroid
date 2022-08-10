@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ public class PractisesLevelFragment extends Fragment {
     Activity activity;
     LevelAdapter levelAdapter;
     Session session;
+    SwipeRefreshLayout swipe;
 
 
 
@@ -49,10 +51,19 @@ public class PractisesLevelFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_practises_level, container, false);
         recyclerView = root.findViewById(R.id.recyclerView);
+        swipe = root.findViewById(R.id.swipe);
         activity = getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
         session = new Session(activity);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                levelList();
+
+            }
+        });
         levelList();
 
 
@@ -67,6 +78,7 @@ public class PractisesLevelFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        swipe.setRefreshing(false);
                         JSONObject object = new JSONObject(response);
                         JSONObject jsonObject1 = object.getJSONObject(Constant.DATA);
                         JSONArray jsonArray1 = jsonObject1.getJSONArray(Constant.LEVELS);
@@ -83,7 +95,6 @@ public class PractisesLevelFragment extends Fragment {
                             }
                         }
                         JSONArray jsonArray2 = jsonObject1.getJSONArray(Constant.USER_LEVELS);
-                        Log.d("PRACTISE_RES",jsonArray2.toString());
                         ArrayList<Level> userlevels = new ArrayList<>();
 
                         for (int i = 0; i < jsonArray2.length(); i++) {

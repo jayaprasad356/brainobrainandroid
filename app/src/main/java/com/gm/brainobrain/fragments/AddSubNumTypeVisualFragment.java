@@ -3,11 +3,14 @@ package com.gm.brainobrain.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +42,9 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     String seconds;
     int question;
     LinearProgressIndicator quesProgress;
-    TextView tvQuestion;
+    TextView tvQuestion,tvCountdoun;
+    private  boolean running;
+    private  int s = 0;
     Session session;
     RelativeLayout rl;
     String Level,Title;
@@ -48,6 +53,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     TextView tvQuestionContent;
     int score = 0 ;
     String actanswer;
+
     public AddSubNumTypeVisualFragment() {
         // Required empty public constructor
     }
@@ -92,6 +98,36 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         });
         return root;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvCountdoun = view.findViewById(R.id.tvCountdoun);
+        running = true;
+        startTimer();
+
+
+    }
+    private void startTimer() {
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hrs = s/3600;
+                int min = (s%36000)/60;
+                int sec = s%60;
+                String time = String.format("%02d:%02d:%02d",hrs,min,sec);
+                tvCountdoun.setText(time);
+                if (running){
+                    s++;
+                }
+                handler.postDelayed(this,0);
+
+
+            }
+        });
+    }
+
 
     private void nextQuestion()
     {

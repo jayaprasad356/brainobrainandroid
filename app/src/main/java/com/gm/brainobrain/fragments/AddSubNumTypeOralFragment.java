@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.text.Html;
 import android.util.Log;
@@ -39,16 +42,18 @@ public class AddSubNumTypeOralFragment extends Fragment {
     String seconds;
     int question;
     LinearProgressIndicator quesProgress;
-    TextView tvQuestion,tvNumber;
+    TextView tvQuestion,tvNumber,tvCountdoun;
     Session session;
     RelativeLayout rl;
     String Level,Title,Number;
+    private  int s = 0;
     int noOfSeconds;
     TextToSpeech tts;
     boolean ttsspeak = false;
     int qno = 0,qpno = 0;
     boolean nextquestion = false;
     int score = 0 ;
+    private  boolean running;
     String actanswer;
 
 
@@ -90,8 +95,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
         PractisesActivity.imgBack.setVisibility(View.INVISIBLE);
         PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
 
-
-
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
 
         quesProgress.setProgress(question);
@@ -102,11 +105,41 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
         return root;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvCountdoun = view.findViewById(R.id.tvCountdoun);
+        running = true;
+        startTimer();
+
+
+    }
+
+    private void startTimer() {
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hrs = s/3600;
+                int min = (s%36000)/60;
+                int sec = s%60;
+                String time = String.format("%02d:%02d:%02d",hrs,min,sec);
+                tvCountdoun.setText(time);
+                if (running){
+                    s++;
+                }
+                handler.postDelayed(this,0);
+
+
+            }
+        });
+    }
 
 
     private void speakNumber(String number)
     {
-        new CountDownTimer(2000,1000) {
+        new CountDownTimer(noOfSeconds,1000) {
             @Override
             public void onTick(long l) {
                 tts.speak(number,TextToSpeech.QUEUE_FLUSH,null); //speak after 1000ms
@@ -125,10 +158,10 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
         tvNumber.setText(Number);
         if (ttsspeak){
-            tts.speak(Number.replaceAll("-","less than "),TextToSpeech.QUEUE_FLUSH,null);
+            tts.speak(Number.replaceAll("-","less "),TextToSpeech.QUEUE_FLUSH,null);
         }
         else {
-            speakNumber(Number.replaceAll("-","less than "));
+            speakNumber(Number.replaceAll("-","less "));
 
         }
         tvQuestion.setText("Question "+question+" of 10");
@@ -136,7 +169,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
 
 
-        PractisesActivity.cTimer = new CountDownTimer(2000, 1000) {
+        PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + " Sec");
