@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity">
+    tools:context=".activities.DashboardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,18 +24,19 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
             android:padding="10dp"
-            android:text="BRAINO BRAIN"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="18dp" />
 
 
-        <Button
-            android:id="@+id/btnMenu"
+        <ImageView
+            android:id="@+id/imgMenu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/ic_3dots"
+            android:layout_alignParentEnd="true"
             android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"/>
+            android:padding="10dp"
+            android:src="@drawable/ic_3dots" />
 
 
     </RelativeLayout>
@@ -52,7 +53,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/childdp">
+            android:src="@drawable/profile">
         </ImageView>
 
         <LinearLayout
@@ -62,9 +63,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Krish"
+                tools:text="Krish"
                 android:textSize="27dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -72,9 +74,10 @@
             </TextView>
 
             <TextView
+                android:id="@+id/tvUserId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@krish123"
+                android:text="krish123"
                 android:textSize="15dp"
                 android:layout_marginStart="18dp">
             </TextView>
@@ -116,13 +119,60 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/cpbPractises"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:indicatorColor="@color/primaryColor"
+                    app:indicatorSize="50dp"
+                    android:max="10"
+                    app:trackColor="@color/light_blue"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="8dp" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/mylevelPractises"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        />
+                    <TextView
+                        android:id="@+id/totallevelPractises"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/10"
+                        android:textSize="7dp"
+                        android:textColor="#A6000000"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/progress"/>
+                android:src="@drawable/progress" />
 
         </RelativeLayout>
 
@@ -143,13 +193,49 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"/>
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/progress"/>
+                android:layout_centerVertical="true">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/cpbTablePractises"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:indicatorColor="@color/primaryColor"
+                    app:indicatorSize="50dp"
+                    app:trackColor="@color/light_blue"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="8dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/mylevelTablePractises"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        />
+                    <TextView
+                        android:id="@+id/totallevelTablePractises"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/0"
+                        android:textSize="7dp"
+                        android:textColor="#A6000000"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
         <RelativeLayout
@@ -169,13 +255,48 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/progress"/>
+                android:layout_centerVertical="true">
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/cpbMultiTaskings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:indicatorColor="@color/primaryColor"
+                    app:indicatorSize="50dp"
+                    app:trackColor="@color/light_blue"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="8dp" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/mylevelMultiTaskings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        />
+                    <TextView
+                        android:id="@+id/totallevelMultiTaskings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/0"
+                        android:textSize="7dp"
+                        android:textColor="#A6000000"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

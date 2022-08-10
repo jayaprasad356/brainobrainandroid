@@ -6,5 +6,8 @@
         android:color="#adcfec"/>
     <solid
         android:color="#adcfec"/>
+    <corners
+        android:bottomLeftRadius="5dp"
+        android:bottomRightRadius="5dp"/>
 
 </shape>

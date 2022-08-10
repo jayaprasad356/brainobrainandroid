@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gm.brainobrain.activities.PractisesActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.Slider;
 
@@ -30,7 +31,7 @@ public class Level5sectionActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Level5sectionActivity.this,ProgressActivity.class);
+                Intent intent = new Intent(Level5sectionActivity.this, PractisesActivity.class);
                 startActivity(intent);
 
 
@@ -84,16 +85,16 @@ public class Level5sectionActivity extends AppCompatActivity {
 
     private void showbottomsheet1() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.flashcards_bottomsheet_l_three);
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStartvisual = bottomSheetDialog.findViewById(R.id.tvStartvisual);
-        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartOral);
+        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartvisual);
         TextView tvOralView = bottomSheetDialog.findViewById(R.id.tvOralView);
         TextView tvSec = bottomSheetDialog.findViewById(R.id.tvSec);
         TextView tvVisualview = bottomSheetDialog.findViewById(R.id.tvVisualview);
         Slider sliderTime = bottomSheetDialog.findViewById(R.id.sliderTime);
         LinearLayout lltimeinsec = bottomSheetDialog.findViewById(R.id.lltimeinsec);
-        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.rlWomanoral);
-        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.rlManoral);
+        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
+        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
 
 
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -194,16 +195,16 @@ public class Level5sectionActivity extends AppCompatActivity {
     }
     private void showbottomsheet2() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.flashcards_bottomsheet_l_three);
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStartvisual = bottomSheetDialog.findViewById(R.id.tvStartvisual);
-        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartOral);
+        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartvisual);
         TextView tvOralView = bottomSheetDialog.findViewById(R.id.tvOralView);
         TextView tvSec = bottomSheetDialog.findViewById(R.id.tvSec);
         TextView tvVisualview = bottomSheetDialog.findViewById(R.id.tvVisualview);
         Slider sliderTime = bottomSheetDialog.findViewById(R.id.sliderTime);
         LinearLayout lltimeinsec = bottomSheetDialog.findViewById(R.id.lltimeinsec);
-        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.rlWomanoral);
-        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.rlManoral);
+        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
+        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
 
 
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -304,16 +305,16 @@ public class Level5sectionActivity extends AppCompatActivity {
     }
     private void showbottomsheet3() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.flashcards_bottomsheet_l_three);
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStartvisual = bottomSheetDialog.findViewById(R.id.tvStartvisual);
-        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartOral);
+        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartvisual);
         TextView tvOralView = bottomSheetDialog.findViewById(R.id.tvOralView);
         TextView tvSec = bottomSheetDialog.findViewById(R.id.tvSec);
         TextView tvVisualview = bottomSheetDialog.findViewById(R.id.tvVisualview);
         Slider sliderTime = bottomSheetDialog.findViewById(R.id.sliderTime);
         LinearLayout lltimeinsec = bottomSheetDialog.findViewById(R.id.lltimeinsec);
-        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.rlWomanoral);
-        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.rlManoral);
+        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
+        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
 
 
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -414,16 +415,16 @@ public class Level5sectionActivity extends AppCompatActivity {
     }
     private void showbottomsheet4() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.flashcards_bottomsheet_l_three);
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStartvisual = bottomSheetDialog.findViewById(R.id.tvStartvisual);
-        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartOral);
+        TextView tvStartOral = bottomSheetDialog.findViewById(R.id.tvStartvisual);
         TextView tvOralView = bottomSheetDialog.findViewById(R.id.tvOralView);
         TextView tvSec = bottomSheetDialog.findViewById(R.id.tvSec);
         TextView tvVisualview = bottomSheetDialog.findViewById(R.id.tvVisualview);
         Slider sliderTime = bottomSheetDialog.findViewById(R.id.sliderTime);
         LinearLayout lltimeinsec = bottomSheetDialog.findViewById(R.id.lltimeinsec);
-        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.rlWomanoral);
-        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.rlManoral);
+        RelativeLayout rlWomanoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
+        RelativeLayout rlManoral = bottomSheetDialog.findViewById(R.id.lltimeinsec);
 
 
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
