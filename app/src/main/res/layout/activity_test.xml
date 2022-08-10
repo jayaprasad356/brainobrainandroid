@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TestActivity">
+
+    <EditText
+        android:id="@+id/etAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/border6"
+        android:gravity="start"
+        android:inputType="number"
+        android:hint="Your Answer Here"
+        android:padding="15dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswer"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border8"
+        android:paddingHorizontal="25dp"
+        android:text="Submit" />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/lcolumn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/c1bdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"/>
+            <ImageView
+                android:id="@+id/c1sdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c1sdice2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c1sdice3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c1sdice4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lcolumn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/c2bdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"/>
+            <ImageView
+                android:id="@+id/c2sdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c2sdice2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c2sdice3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c2sdice4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lcolumn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/c3bdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"/>
+            <ImageView
+                android:id="@+id/c3sdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c3sdice2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c3sdice3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c3sdice4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lcolumn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/c4bdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"/>
+            <ImageView
+                android:id="@+id/c4sdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c4sdice2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c4sdice3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c4sdice4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lcolumn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/c5bdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"/>
+            <ImageView
+                android:id="@+id/c5sdice1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c5sdice2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c5sdice3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+            <ImageView
+                android:id="@+id/c5sdice4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/abacuspiece"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
