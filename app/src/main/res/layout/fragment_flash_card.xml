@@ -11,8 +11,8 @@
         android:id="@+id/llFlashcards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="15dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_15sdp"
         android:background="@drawable/border4"
         android:orientation="vertical">
 
@@ -22,7 +22,7 @@
             android:text="Flash Cards"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textSize="@dimen/_16sdp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

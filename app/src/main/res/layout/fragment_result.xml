@@ -9,24 +9,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:padding="2dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:padding="@dimen/_2sdp"
         android:background="@drawable/border6"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="@dimen/_30sdp">
             <ImageView
                 android:id="@+id/blucircle"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:background="@drawable/border9"
                 android:src="@drawable/ic_score_bg" />
 
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="8 \n out of 10"
                 android:textColor="@color/white"
-                android:textSize="25dp" />
+                android:textSize="@dimen/_25sdp" />
 
 
         </RelativeLayout>
@@ -50,14 +50,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:text="Try Again" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingVertical="8dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:text="if you get 10/10 you proceed to next stage"
             android:textAlignment="center"
             android:background="@drawable/border10"

@@ -28,30 +28,30 @@
         android:id="@+id/tvVisualview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:background="@drawable/border5"
-        android:padding="10dp"
-        android:layout_marginEnd="25dp"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
         android:text="Visual"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/tvOralView"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:background="@drawable/border13"
-        android:padding="10dp"
+        android:padding="@dimen/_10sdp"
         android:textAlignment="center"
         android:text="Oral"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
         />
 
@@ -68,20 +68,20 @@
             >
             <ImageView
                 android:id="@+id/imgMan"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="15dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:padding="@dimen/_15sdp"
                 android:src="@drawable/man"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/border14"
                 />
             <ImageView
                 android:id="@+id/imgWoman"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:src="@drawable/woman"
-                android:layout_margin="10dp"
-                android:padding="15dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_15sdp"
                 android:background="@drawable/border12"
                 />
 
@@ -92,9 +92,9 @@
         android:id="@+id/sliderTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:valueFrom="2"
         android:value="2"
         android:valueTo="15"
@@ -111,14 +111,14 @@
         android:layout_below="@+id/slider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="@dimen/_25sdp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time "
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="@dimen/_15sdp"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/tvSec"
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:text="2"
             android:textColor="@color/secondaryColor"
-            android:textSize="15dp"
+            android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
 
         <TextView
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:text=" Sec"
             android:textColor="@color/secondaryColor"
-            android:textSize="15dp"
+            android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -144,14 +144,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/border6"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="10dp"
+            android:paddingHorizontal="@dimen/_30sdp"
+            android:paddingVertical="@dimen/_10sdp"
             android:text="Start"
             android:textColor="#0568cc"
-            android:textSize="22dp"
+            android:textSize="@dimen/_22sdp"
             />
 
 

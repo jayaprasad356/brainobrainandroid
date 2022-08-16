@@ -23,9 +23,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
+                android:layout_marginLeft="@dimen/_14sdp"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="@dimen/_5sdp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -38,17 +38,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="@dimen/_2sdp"
                     android:text="00:00:00"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/_16sdp" />
 
 
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -58,7 +58,7 @@
                     android:layout_centerVertical="true"
                     android:text="Question 1 of 10"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
+                    android:textSize="@dimen/_20sdp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -68,30 +68,30 @@
                 android:id="@+id/quesProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:max="10"
-                app:trackThickness="5dp"
+                app:trackThickness="@dimen/_5sdp"
                 app:indicatorColor="@color/primaryColor"
                 app:trackColor="@color/light_blue"
-                app:trackCornerRadius="10dp"
+                app:trackCornerRadius="@dimen/_10sdp"
                 />
             <TextView
                 android:id="@+id/tvQuestionContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="@dimen/_20sdp"
                 android:textStyle="bold"
                 android:fontFamily="@font/brainx"
                 android:visibility="gone"
                 android:background="@drawable/border7"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:padding="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:padding="@dimen/_10sdp"
                 android:text=""/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -99,33 +99,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border7"
-                android:padding="10dp"
+                android:padding="@dimen/_10sdp"
                 android:layout_gravity="center"
                 tools:listitem="@layout/number_lyt_item"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"/>
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"/>
             <EditText
                 android:id="@+id/etAnswer"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:background="@drawable/border6"
                 android:textAlignment="center"
-                android:textSize="28dp"
+                android:textSize="@dimen/_28sdp"
                 android:hint="Your Answer Here"
                 android:textStyle="bold"
-                android:padding="15dp" />
+                android:padding="@dimen/_5sdp" />
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/border8"
-                android:paddingHorizontal="25dp"
+                android:paddingHorizontal="@dimen/_25sdp"
                 android:text="Submit" />
             <com.konaire.numerickeyboard.NumericKeyboard
                 android:layout_width="match_parent"

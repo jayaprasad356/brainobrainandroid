@@ -2,19 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="@dimen/_45sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:fontFamily="@font/brainx"
         android:id="@+id/tvNumber"
-        android:layout_width="65dp"
+        android:layout_width="@dimen/_65sdp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="@dimen/_5sdp"
         android:text="-400"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold" />
 
 </RelativeLayout>

@@ -14,9 +14,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="@dimen/_14sdp"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="@dimen/_5sdp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -39,8 +39,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:orientation="horizontal">
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:text="Question 1 of 10"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
             <LinearLayout
                 android:layout_centerVertical="true"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="@dimen/_5sdp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -86,14 +86,14 @@
             android:id="@+id/quesProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
             android:max="10"
-            app:trackThickness="5dp"
+            app:trackThickness="@dimen/_5sdp"
             app:indicatorColor="@color/primaryColor"
             app:trackColor="@color/light_blue"
-            app:trackCornerRadius="10dp"
+            app:trackCornerRadius="@dimen/_10sdp"
             />
 
 
@@ -102,16 +102,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="@dimen/_350sdp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/border7"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="30dp">
+        android:padding="@dimen/_30sdp">
 
         <LinearLayout
             android:id="@+id/lcolumn1"
@@ -121,37 +121,37 @@
 
             <ImageView
                 android:id="@+id/c1bdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c1sdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
 
@@ -166,37 +166,37 @@
 
             <ImageView
                 android:id="@+id/c2bdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c2sdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
 
@@ -212,37 +212,37 @@
 
             <ImageView
                 android:id="@+id/c3bdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c3sdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
 
@@ -258,37 +258,37 @@
 
             <ImageView
                 android:id="@+id/c4bdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c4sdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
 
@@ -303,37 +303,37 @@
 
             <ImageView
                 android:id="@+id/c5bdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c5sdice1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
 

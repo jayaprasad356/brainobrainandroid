@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/border1">
 
 
@@ -23,10 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:padding="10dp"
+            android:padding="@dimen/_10sdp"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="@dimen/_18sdp" />
 
 
         <ImageView
@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/_10sdp"
             android:src="@drawable/ic_3dots" />
 
 
@@ -47,12 +47,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/brnbtnrel"
-        android:layout_margin="30dp"
+        android:layout_margin="@dimen/_30sdp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
             android:src="@drawable/profile">
         </ImageView>
 
@@ -67,10 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Krish"
-                android:textSize="27dp"
+                android:textSize="@dimen/_27sdp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_marginStart="18dp">
+                android:layout_marginStart="@dimen/_18sdp">
             </TextView>
 
             <TextView
@@ -78,8 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="krish123"
-                android:textSize="15dp"
-                android:layout_marginStart="18dp">
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_18sdp">
             </TextView>
 
         </LinearLayout>
@@ -90,8 +90,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llbabypic"
-        android:layout_marginStart="30dp"
-        android:textSize="18dp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:textSize="@dimen/_18sdp"
         android:text="Explore"/>
 
 
@@ -99,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="30dp"
+        android:layout_margin="@dimen/_30sdp"
         >
 
         <RelativeLayout
@@ -107,21 +107,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="@dimen/_10sdp"
             android:background="@drawable/border2">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="20dp"
+                android:padding="@dimen/_20sdp"
                 android:text="Practices"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="@dimen/_18sdp"
                 android:textStyle="bold" />
             <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
@@ -130,11 +130,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:indicatorColor="@color/primaryColor"
-                    app:indicatorSize="50dp"
+                    app:indicatorSize="@dimen/_50sdp"
                     android:max="10"
                     app:trackColor="@color/light_blue"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="8dp" />
+                    app:trackCornerRadius="@dimen/_10sdp"
+                    app:trackThickness="@dimen/_8sdp" />
 
 
                 <LinearLayout
@@ -149,14 +149,14 @@
                         android:layout_height="wrap_content"
                         android:text="4"
                         android:textColor="@color/black"
-                        android:textSize="12dp"
+                        android:textSize="@dimen/_12sdp"
                         />
                     <TextView
                         android:id="@+id/totallevelPractises"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/10"
-                        android:textSize="7dp"
+                        android:textSize="@dimen/_7sdp"
                         android:textColor="#A6000000"
                         />
 
@@ -167,8 +167,8 @@
 
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -180,22 +180,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:padding="@dimen/_10sdp"
             android:background="@drawable/border2">
 
             <TextView
-                android:padding="20dp"
+                android:padding="@dimen/_20sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Table Practices"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"/>
             <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
@@ -204,10 +204,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:indicatorColor="@color/primaryColor"
-                    app:indicatorSize="50dp"
+                    app:indicatorSize="@dimen/_50sdp"
                     app:trackColor="@color/light_blue"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="8dp" />
+                    app:trackCornerRadius="@dimen/_10sdp"
+                    app:trackThickness="@dimen/_8sdp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -221,14 +221,14 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/black"
-                        android:textSize="12dp"
+                        android:textSize="@dimen/_12sdp"
                         />
                     <TextView
                         android:id="@+id/totallevelTablePractises"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/0"
-                        android:textSize="7dp"
+                        android:textSize="@dimen/_7sdp"
                         android:textColor="#A6000000"
                         />
 
@@ -242,22 +242,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:padding="@dimen/_10sdp"
             android:background="@drawable/border2">
 
             <TextView
-                android:padding="20dp"
+                android:padding="@dimen/_20sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Multi Taskings"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="@dimen/_18sdp"
                 android:textStyle="bold" />
             <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
                 <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -265,10 +265,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:indicatorColor="@color/primaryColor"
-                    app:indicatorSize="50dp"
+                    app:indicatorSize="@dimen/_50sdp"
                     app:trackColor="@color/light_blue"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="8dp" />
+                    app:trackCornerRadius="@dimen/_10sdp"
+                    app:trackThickness="@dimen/_8sdp" />
 
 
                 <LinearLayout
@@ -283,14 +283,14 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/black"
-                        android:textSize="12dp"
+                        android:textSize="@dimen/_12sdp"
                         />
                     <TextView
                         android:id="@+id/totallevelMultiTaskings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/0"
-                        android:textSize="7dp"
+                        android:textSize="@dimen/_7sdp"
                         android:textColor="#A6000000"
                         />
 

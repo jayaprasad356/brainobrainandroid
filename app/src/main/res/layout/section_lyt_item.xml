@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="10dp"
+    android:layout_margin="@dimen/_10sdp"
+    app:cardElevation="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:background="@drawable/border4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="@dimen/_15sdp"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +21,7 @@
             tools:text="Single Digit (5 rows)"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textSize="@dimen/_16sdp"/>
         <TextView
             android:id="@+id/subTitle"
             android:layout_width="match_parent"

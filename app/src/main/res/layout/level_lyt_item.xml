@@ -2,15 +2,15 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardElevation="10dp"
+    android:layout_margin="@dimen/_10sdp"
+    app:cardElevation="@dimen/_10sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border2"
-        android:padding="15dp"
+        android:padding="@dimen/_15sdp"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
                 android:text="Level 1"/>
 
@@ -41,11 +41,11 @@
             android:id="@+id/linearProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:trackThickness="8dp"
+            android:padding="@dimen/_20sdp"
+            app:trackThickness="@dimen/_8sdp"
             app:indicatorColor="@color/primaryColor"
             app:trackColor="@color/light_blue"
-            app:trackCornerRadius="10dp"
+            app:trackCornerRadius="@dimen/_10sdp"
             />
 
     </LinearLayout>
