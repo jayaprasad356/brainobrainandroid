@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -82,12 +84,10 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 1000;
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(activity,4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5, GridLayoutManager.HORIZONTAL, false);
+        //recyclerView.setLayoutManager(new GridLayoutManager(activity, 5, LinearLayoutManager.VERTICAL, false));
 
-
-
-
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity,4);
         recyclerView.setLayoutManager(gridLayoutManager);
         numberList();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
