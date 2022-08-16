@@ -31,12 +31,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import render.animations.Attention;
+import render.animations.Bounce;
+import render.animations.Flip;
+import render.animations.Render;
+import render.animations.Slide;
+
 public class DashboardActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    RelativeLayout rlPractice;
+    RelativeLayout rlPractice,rlTablePractice;
     ImageView imgMenu;
     CircularProgressIndicator cpbPractises,cpbTablePractises;
-    TextView tvUserId,mylevelPractises,totallevelPractises,mylevelTablePractises,totallevelTablePractises,mylevelMultiTaskings,totallevelMultiTaskings,tvName;
+    TextView tvUserId,mylevelPractises,totallevelPractises,mylevelTablePractises,totallevelTablePractises,mylevelMultiTaskings,totallevelMultiTaskings,tvName,tvPractices;
 
     Session session;
     Activity activity;
@@ -46,6 +52,9 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
         setContentView(R.layout.activity_dashboard);
         activity = DashboardActivity.this;
         session = new Session(activity);
+        Render render = new Render(DashboardActivity.this);
+
+
         cpbPractises = findViewById(R.id.cpbPractises);
         cpbTablePractises = findViewById(R.id.cpbTablePractises);
         mylevelPractises = findViewById(R.id.mylevelPractises);
@@ -58,6 +67,20 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
         rlPractice = findViewById(R.id.rlPractice);
         tvUserId = findViewById(R.id.tvUserId);
         tvName = findViewById(R.id.tvName);
+        rlTablePractice = findViewById(R.id.rlTablePractice);
+        tvPractices = findViewById(R.id.tvPractices);
+
+        render = new Render(this);
+        render.setDuration(1000);
+
+
+        render.setAnimation(Flip.InX(rlPractice));
+        render.start();
+
+        render.setAnimation(Flip.InX(rlTablePractice));
+        render.start();
+
+
 
         tvUserId.setText(session.getData(Constant.EMAIL));
         tvName.setText(session.getData(Constant.NAME));
@@ -66,6 +89,7 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, PractisesActivity.class);
                 startActivity(intent);
+                
             }
         });
         imgMenu.setOnClickListener(new View.OnClickListener() {

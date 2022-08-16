@@ -99,8 +99,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/_30sdp"
+        android:padding="@dimen/_30sdp"
+
         >
+
+
+
+
 
         <RelativeLayout
             android:id="@+id/rlPractice"
@@ -111,6 +116,7 @@
             android:background="@drawable/border2">
 
             <TextView
+                android:id="@+id/tvPractices"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -177,6 +183,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlTablePractice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -185,14 +192,14 @@
             android:background="@drawable/border2">
 
             <TextView
-                android:padding="@dimen/_20sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/_20sdp"
                 android:text="Table Practices"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
             <RelativeLayout
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
