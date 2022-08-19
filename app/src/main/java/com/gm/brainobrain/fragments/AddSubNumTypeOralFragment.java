@@ -55,6 +55,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
     int score = 0 ;
     private  boolean running;
     String actanswer;
+    int countcomp = 0;
 
 
     public AddSubNumTypeOralFragment() {
@@ -139,10 +140,18 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
     private void speakNumber(String number)
     {
-        new CountDownTimer(noOfSeconds,1000) {
+        boolean completed = false;
+
+        new CountDownTimer(noOfSeconds,2000) {
             @Override
             public void onTick(long l) {
-                tts.speak(number,TextToSpeech.QUEUE_FLUSH,null); //speak after 1000ms
+                countcomp = countcomp+1;
+                Log.d("SPEAKCOUNTD",countcomp+"");
+                if (countcomp < 3){
+                    tts.speak(number,TextToSpeech.QUEUE_FLUSH,null); //speak after 1000ms
+
+                }
+
             }
 
             @Override
@@ -158,10 +167,10 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
         tvNumber.setText(Number);
         if (ttsspeak){
-            tts.speak(Number.replaceAll("-","less "),TextToSpeech.QUEUE_FLUSH,null);
+            tts.speak(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"),TextToSpeech.QUEUE_FLUSH,null);
         }
         else {
-            speakNumber(Number.replaceAll("-","less "));
+            speakNumber(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"));
 
         }
         tvQuestion.setText("Question "+question+" of 10");
@@ -193,6 +202,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
     private String getQuestion()
     {
+        Log.d("ORALTYPE",session.getData(Constant.QUESTION_ARRAY));
         String Question = "";
         try {
             JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
@@ -200,17 +210,53 @@ public class AddSubNumTypeOralFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                 JSONArray jsonArray1 = jsonArray.getJSONObject(qno).getJSONArray(Constant.QUESTION);
                 JSONArray jsonArray2 = jsonArray.getJSONObject(qno).getJSONArray(Constant.ANSWERS);
-                actanswer = jsonArray2.get(0).toString();
+                if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division")){
+                    actanswer = jsonArray2.get(0).toString();
+                    ArrayList<String> questions = new ArrayList<>();
 
-                Question = jsonArray1.get(qpno).toString();
-                if (jsonArray1.length() - 1 == qpno){
+                    for (int i = 0; i < jsonArray1.length(); i++) {
+                        questions.add(jsonArray1.get(i).toString());
+                    }
+                    String symbol = "";
+                    if (session.getData(Constant.TYPE).equals("Multiplication")){
+                        symbol = " x ";
+                    }else if (session.getData(Constant.TYPE).equals("Division")){
+                        symbol = " / ";
+
+                    }
+                    String s = "";
+                    for (int i = 0; i < questions.size(); i++) {
+                        if (i != questions.size() - 1){
+                            s += questions.get(i) + symbol;
+                        }
+                        else {
+                            s += questions.get(i) + "";
+
+                        }
+
+                    }
+                    Question = s;
                     nextquestion = true;
                     qpno = 0;
                     qno = qno + 1;
+
                 }else {
-                    nextquestion = false;
-                    qpno = qpno + 1;
+
+                    actanswer = jsonArray2.get(0).toString();
+
+                    Question = jsonArray1.get(qpno).toString();
+                    if (jsonArray1.length() - 1 == qpno){
+                        nextquestion = true;
+                        qpno = 0;
+                        qno = qno + 1;
+                    }else {
+                        nextquestion = false;
+                        qpno = qpno + 1;
+                    }
+
+
                 }
+
 
 
 

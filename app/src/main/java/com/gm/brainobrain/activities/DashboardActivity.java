@@ -52,8 +52,6 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
         setContentView(R.layout.activity_dashboard);
         activity = DashboardActivity.this;
         session = new Session(activity);
-        Render render = new Render(DashboardActivity.this);
-
 
         cpbPractises = findViewById(R.id.cpbPractises);
         cpbTablePractises = findViewById(R.id.cpbTablePractises);
@@ -69,17 +67,6 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
         tvName = findViewById(R.id.tvName);
         rlTablePractice = findViewById(R.id.rlTablePractice);
         tvPractices = findViewById(R.id.tvPractices);
-
-        render = new Render(this);
-        render.setDuration(1000);
-
-
-        render.setAnimation(Flip.InX(rlPractice));
-        render.start();
-
-        render.setAnimation(Flip.InX(rlTablePractice));
-        render.start();
-
 
 
         tvUserId.setText(session.getData(Constant.EMAIL));
