@@ -42,6 +42,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
         // other dependencies here
     implementation 'com.konaire.numeric-keyboard:numeric-keyboard:1.2.0'
+    dependencies {
+        implementation 'com.github.TutorialsAndroid:KAlertDialog:v19.0.19'
+    }
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
 

@@ -60,6 +60,7 @@ public class PractisesActivity extends AppCompatActivity {
 
     public void cancelTimer()
     {
+
         if (cTimer != null) {
             cTimer.cancel();
 

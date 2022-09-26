@@ -2,15 +2,18 @@ package com.gm.brainobrain.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +30,7 @@ import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.adapter.QuestionAdapter;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
+import com.gm.brainobrain.model.Question;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONArray;
@@ -34,7 +38,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 public class AddSubNumTypeOralFragment extends Fragment {
     Activity activity;
@@ -57,6 +65,8 @@ public class AddSubNumTypeOralFragment extends Fragment {
     String actanswer;
     int countcomp = 0;
 
+    int getQuestionLength = 0;
+
 
     public AddSubNumTypeOralFragment() {
         // Required empty public constructor
@@ -78,6 +88,9 @@ public class AddSubNumTypeOralFragment extends Fragment {
         Title = session.getData(Constant.TYPE);
         session.setData(Constant.SCORE,"0");
         question = getArguments().getInt("QUESTION");
+        Set<String> a=new HashSet<>();
+        a.add("male");
+        Voice v = new Voice("hi-in-x-hie-local",new Locale("hi_IN"),400,200,false,a);
         tts = new TextToSpeech(activity, i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int result = tts.setLanguage(Locale.US);
@@ -88,9 +101,9 @@ public class AddSubNumTypeOralFragment extends Fragment {
             } else {
                 Log.e("TTS", "Initialization failed");
             }
-
         });
-
+        tts.setVoice(v);
+        tts.setEngineByPackageName("com.google.android.tts");
         tvTimer.setText(seconds + " Sec");
         tvQuestion.setText("Question "+question+" of 10");
         PractisesActivity.imgBack.setVisibility(View.INVISIBLE);
@@ -164,18 +177,19 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
     private void countdownTime() {
         Number = getQuestion();
-
+        getQuestionLength = getQuestion().length();
         tvNumber.setText(Number);
+        Random r = new Random();
+        int CustomColors = Color.argb(225 ,r.nextInt(256),r.nextInt(256),r.nextInt(256));
+        tvNumber.setTextColor(CustomColors);
         if (ttsspeak){
             tts.speak(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"),TextToSpeech.QUEUE_FLUSH,null);
         }
         else {
             speakNumber(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"));
-
         }
         tvQuestion.setText("Question "+question+" of 10");
         quesProgress.setProgress(question);
-
 
 
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
@@ -210,8 +224,8 @@ public class AddSubNumTypeOralFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                 JSONArray jsonArray1 = jsonArray.getJSONObject(qno).getJSONArray(Constant.QUESTION);
                 JSONArray jsonArray2 = jsonArray.getJSONObject(qno).getJSONArray(Constant.ANSWERS);
+                actanswer = jsonArray2.get(0).toString();
                 if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division")){
-                    actanswer = jsonArray2.get(0).toString();
                     ArrayList<String> questions = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray1.length(); i++) {
@@ -242,8 +256,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
                 }else {
 
-                    actanswer = jsonArray2.get(0).toString();
-
                     Question = jsonArray1.get(qpno).toString();
                     if (jsonArray1.length() - 1 == qpno){
                         nextquestion = true;
@@ -256,8 +268,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
 
                 }
-
-
 
 
             }

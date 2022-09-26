@@ -65,7 +65,6 @@ public class DoublingNumberAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvNumber = itemView.findViewById(R.id.tvNumber);
             rlNumber = itemView.findViewById(R.id.rlNumber);
 
-
         }
     }
 }

@@ -97,25 +97,24 @@
             app:trackColor="@color/light_blue"
             app:trackCornerRadius="@dimen/_10sdp"
             />
+
         <TextView
-            android:fontFamily="@font/brainx"
             android:id="@+id/tvNumber"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_300sdp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:background="@drawable/border7"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_20sdp"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/border7"
+            android:fontFamily="@font/brainx"
             android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="5"
+            android:textColor="@color/black"
             android:textSize="@dimen/_60sdp"
-            android:text="5"/>
-
-
+            android:textStyle="bold" />
 
 
     </LinearLayout>

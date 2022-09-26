@@ -64,10 +64,7 @@ public class ResultFragment extends Fragment {
                     bundle.putInt("QUESTION", 1);
                     FlashCardsQuestionVisualFragment flashCardsQuestionVisualFragment = new FlashCardsQuestionVisualFragment();
                     flashCardsQuestionVisualFragment.setArguments(bundle);
-                    PractisesActivity.fm.beginTransaction().add(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
-
-
-
+                    PractisesActivity.fm.beginTransaction().add(R.id.container, flashCardsQuestionVisualFragment, String.valueOf(R.layout.fragment_flash_cards_question_visual)).commit();
                 }
 
             }

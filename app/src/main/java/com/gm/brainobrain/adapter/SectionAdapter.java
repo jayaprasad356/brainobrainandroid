@@ -62,11 +62,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showbottomsheet(section.getId(),section.getType());
+                showbottomsheet(section.getId(),section.getType(),section.getName());
             }
         });
     }
-    private void showbottomsheet(String id,String title) {
+    private void showbottomsheet(String id, String title, String name) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStart = bottomSheetDialog.findViewById(R.id.tvStart);
@@ -111,6 +111,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             session.setData(Constant.SECTION_ID,id);
             Bundle bundle = new Bundle();
             bundle.putInt("QUESTION", 1);
+            bundle.putString(Constant.NAME, name);
             getSections(bundle,title,type);
 
 

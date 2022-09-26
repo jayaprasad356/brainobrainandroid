@@ -26,6 +26,7 @@ public class Constant {
     public static final String ADDSUBNUMTYPEVISUALFRAGMENT = "AddSubNumTypeVisualFragment";
     public static final String ADDSUBNUMTYPEORALFRAGMENT = "AddSubNumTypeOralFragment";
     public static final String DOUBLINGVIEWFRAGMENT = "DouublingViewFragment";
+    public static final String FlashCardsQuestionVisualFragment ="FlashCardsQuestionVisualFragment";
     public static final String SECONDS = "Seconds";
     public static final String QUES_TYPE = "ques_type";
     public static final String AUTHORIZATION = "Authorization";

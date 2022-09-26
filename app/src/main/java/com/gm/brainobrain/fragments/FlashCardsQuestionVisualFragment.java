@@ -2,6 +2,7 @@ package com.gm.brainobrain.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Html;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.kalert.KAlertDialog;
 import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.adapter.QuestionAdapter;
@@ -34,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
 
 public class FlashCardsQuestionVisualFragment extends Fragment {
     private  int s = 0;
@@ -45,6 +51,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     LinearProgressIndicator quesProgress;
     TextView tvQuestion;
     Session session;
+    EditText etAnswer;
     ImageView c1bdice1,c1sdice1,c1sdice2,c1sdice3,c1sdice4;
     ImageView c2bdice1,c2sdice1,c2sdice2,c2sdice3,c2sdice4;
     ImageView c3bdice1,c3sdice1,c3sdice2,c3sdice3,c3sdice4;
@@ -54,7 +61,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     String first,second,third,fourth,fifth;
     String Level,Title;
     int score = 0 ;
-    String actanswer;
+    String actanswer,name;
 
 
     public FlashCardsQuestionVisualFragment() {
@@ -79,6 +86,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         seconds = session.getData(Constant.SECONDS);
         session.setData(Constant.SCORE,"0");
         question = getArguments().getInt("QUESTION");
+        name = getArguments().getString(Constant.NAME);
         tvTimer.setText(seconds + " Sec");
         tvQuestion.setText("Question "+question+" of 10");
         PractisesActivity.imgBack.setVisibility(View.GONE);
@@ -96,8 +104,6 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
             }
         }.start();
         setQuestion();
-
-
 
 
         return root;
@@ -325,7 +331,6 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         }
         if (isBetween(i,8,10) || isBetween(i,3,5)){
             c5sdice4.setVisibility(View.VISIBLE);
-
         }
         if ( i >= 5){
             c5bdice1.setVisibility(View.VISIBLE);
@@ -424,7 +429,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         tvTimer.setText(seconds + " Sec");
         tvQuestion.setText("Question "+question+" of 10");
         quesProgress.setProgress(question);
-        int noOfSeconds = Integer.parseInt(seconds) * 1000;
+        int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -448,22 +453,40 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.answer_custom_dialog);
-
-        EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
         Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
+        EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
+        Log.e("check",name);
+        if (name.equals("SD")) {
+            etAnswer.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+        }else if(name.equals("DD")){
+            etAnswer.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+        }
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actanswer.equals(etAnswer.getText().toString().trim())){
-                    score = score + 1;
-                    session.setData(Constant.SCORE,score +"");
+                if(etAnswer.getText().toString().isEmpty()) {
+                    ShowAlertDialog();
+                }else {
+                    if(actanswer.equals(etAnswer.getText().toString().trim())){
+                        score = score + 1;
+                        session.setData(Constant.SCORE,score +"");
+                    }
+                    if(!(etAnswer.getText().toString().isEmpty())) {
+                        dialog.dismiss();
+                        next();
+                    }
                 }
-                dialog.dismiss();
-                next();
             }
         });
-
         dialog.show();
+    }
+
+    private void ShowAlertDialog() {
+        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE, 0)
+                .setTitleText("oops")
+                .setContentText("Enter your answer")
+                .setConfirmText("ok")
+                .show();
     }
 
 }
