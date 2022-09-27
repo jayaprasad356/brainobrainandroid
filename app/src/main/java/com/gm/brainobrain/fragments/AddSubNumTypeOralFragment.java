@@ -144,8 +144,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
                     s++;
                 }
                 handler.postDelayed(this,0);
-
-
             }
         });
     }
@@ -210,7 +208,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
             }
         }.start();
-
     }
 
 
@@ -220,12 +217,14 @@ public class AddSubNumTypeOralFragment extends Fragment {
         String Question = "";
         try {
             JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
-            if (jsonObject.getBoolean(Constant.SUCCESS)){
+            if (jsonObject.getBoolean(Constant.SUCCESS))
+            {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                 JSONArray jsonArray1 = jsonArray.getJSONObject(qno).getJSONArray(Constant.QUESTION);
                 JSONArray jsonArray2 = jsonArray.getJSONObject(qno).getJSONArray(Constant.ANSWERS);
                 actanswer = jsonArray2.get(0).toString();
-                if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division")){
+                if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division"))
+                {
                     ArrayList<String> questions = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray1.length(); i++) {

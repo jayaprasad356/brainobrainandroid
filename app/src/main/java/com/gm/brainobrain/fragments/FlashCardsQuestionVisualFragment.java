@@ -152,7 +152,6 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
                 actanswer = jsonArray2.get(0).toString();
                 setImage(question);
 
-
             }
 
         } catch (JSONException e) {

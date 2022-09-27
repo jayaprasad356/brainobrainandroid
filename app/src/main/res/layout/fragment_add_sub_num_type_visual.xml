@@ -61,6 +61,26 @@
                         android:textSize="@dimen/_20sdp"
                         android:textStyle="bold" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_toStartOf="@+id/tvTimer"
+                        android:background="@drawable/ic_timer" />
+
+                    <TextView
+                        android:id="@+id/tvTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:gravity="end"
+                        android:text="0"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
                 </RelativeLayout>
 
 
