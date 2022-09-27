@@ -38,6 +38,7 @@ public class Constant {
     public static final String ID = "id";
     public static final String NUMBER = "number";
     public static final String ORAL_NUMBER = "oral_number";
+    public static final String FLASH_CARD = "flash_card";
     public static final String IMAGE = "image";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
@@ -51,6 +52,7 @@ public class Constant {
     public static final String USER_LEVELS = "user_levels" ;
     public static final String USER_PRACTICE_LEVELS_COUNT = "user_practice_levels_count" ;
     public static final String QUESTION = "question" ;
+    public static final String QUESTION_NAME = "question_name" ;
     public static final String ANSWERS = "answers" ;
     public static final String TOKEN = "token" ;
     public static final String NAME = "name" ;

@@ -65,7 +65,7 @@ public class LevelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         holder.itemView.setOnClickListener(view -> {
             if (level.getName().equals("Level 10")){
                 DoublingFragment doublingFragment = new DoublingFragment();
-                PractisesActivity.fm.beginTransaction().add(R.id.container, doublingFragment).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container, doublingFragment).commit();
             }
             else {
                 Bundle bundle = new Bundle();
@@ -74,7 +74,7 @@ public class LevelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 session.setData(Constant.LEVEL_ID,level.getId());
                 PractiseSectionFragment practiseSectionFragment = new PractiseSectionFragment();
                 practiseSectionFragment.setArguments(bundle);
-                PractisesActivity.fm.beginTransaction().add(R.id.container, practiseSectionFragment).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container, practiseSectionFragment).commit();
 
 
             }

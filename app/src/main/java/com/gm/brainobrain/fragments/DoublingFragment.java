@@ -40,7 +40,7 @@ public class DoublingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DoublingViewFragment doublingViewFragment = new DoublingViewFragment();
-                PractisesActivity.fm.beginTransaction().add(R.id.container, doublingViewFragment, Constant.DOUBLINGVIEWFRAGMENT).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container, doublingViewFragment, Constant.DOUBLINGVIEWFRAGMENT).commit();
             }
         });
 

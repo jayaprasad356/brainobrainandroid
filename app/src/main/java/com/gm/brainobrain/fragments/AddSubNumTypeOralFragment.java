@@ -307,7 +307,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
                         bundle.putString("SECONDS", seconds);
                         ResultFragment resultFragment = new ResultFragment();
                         resultFragment.setArguments(bundle);
-                        PractisesActivity.fm.beginTransaction().add(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+                        PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
 
                     }else {
                         question = question + 1;

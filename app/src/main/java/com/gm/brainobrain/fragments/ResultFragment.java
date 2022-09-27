@@ -20,7 +20,7 @@ public class ResultFragment extends Fragment {
     Button btnTryagain;
     Session session;
     Activity activity;
-    TextView tvScore;
+    TextView tvScore,tvFeedback;
 
 
     public ResultFragment() {
@@ -36,7 +36,9 @@ public class ResultFragment extends Fragment {
         session = new Session(activity);
         btnTryagain = root.findViewById(R.id.btnTryagain);
         tvScore = root.findViewById(R.id.tvScore);
+        tvFeedback = root.findViewById(R.id.tvFeedback);
         tvScore.setText(session.getData(Constant.SCORE) +" \n out of 10");
+        tvFeedback.setText(getFeedback(session.getData(Constant.SCORE)));
         btnTryagain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +57,7 @@ public class ResultFragment extends Fragment {
                     bundle.putString("NUMBER", "5");
                     AddSubNumTypeOralFragment addSubNumTypeOralFragment = new AddSubNumTypeOralFragment();
                     addSubNumTypeOralFragment.setArguments(bundle);
-                    PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
+                    PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
 
 
                 }
@@ -64,11 +66,42 @@ public class ResultFragment extends Fragment {
                     bundle.putInt("QUESTION", 1);
                     FlashCardsQuestionVisualFragment flashCardsQuestionVisualFragment = new FlashCardsQuestionVisualFragment();
                     flashCardsQuestionVisualFragment.setArguments(bundle);
-                    PractisesActivity.fm.beginTransaction().add(R.id.container, flashCardsQuestionVisualFragment, String.valueOf(R.layout.fragment_flash_cards_question_visual)).commit();
+                    PractisesActivity.fm.beginTransaction().replace(R.id.container, flashCardsQuestionVisualFragment, String.valueOf(R.layout.fragment_flash_cards_question_visual)).commit();
                 }
 
             }
         });
         return root;
+    }
+
+    private String getFeedback(String score)
+    {
+        String feedback = "";
+        if (score.equals("9") || score.equals("10"))
+        {
+            feedback = "Excellent";
+
+        }
+        else if (score.equals("7") || score.equals("8"))
+        {
+            feedback = "Good";
+
+        }
+        else if (score.equals("5") || score.equals("6"))
+        {
+            feedback = "Need Practice";
+
+        }
+        else if (score.equals("3") || score.equals("4"))
+        {
+            feedback = "Need More Practice";
+
+        }
+        else
+        {
+            feedback = "Speak with your Teacher";
+
+        }
+        return feedback;
     }
 }

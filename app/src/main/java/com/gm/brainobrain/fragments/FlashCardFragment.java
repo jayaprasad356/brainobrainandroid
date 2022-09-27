@@ -73,7 +73,7 @@ public class FlashCardFragment extends Fragment {
                 bundle.putInt("QUESTION", 1);
                 FlashCardsQuestionVisualFragment flashCardsQuestionVisualFragment = new FlashCardsQuestionVisualFragment();
                 flashCardsQuestionVisualFragment.setArguments(bundle);
-                PractisesActivity.fm.beginTransaction().add(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
             }
         });
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
