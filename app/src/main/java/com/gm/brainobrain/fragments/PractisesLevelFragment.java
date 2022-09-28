@@ -3,6 +3,7 @@ package com.gm.brainobrain.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +57,15 @@ public class PractisesLevelFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
         session = new Session(activity);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button even
+                Log.d("BACKBUTTON", "Back button clicks");
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -134,4 +144,6 @@ public class PractisesLevelFragment extends Fragment {
             }
         }, activity, Constant.PRACTICE_LEVEL_URL, params, true,0);
     }
+    // Disable onBack click
+
 }

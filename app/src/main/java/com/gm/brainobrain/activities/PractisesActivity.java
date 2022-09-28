@@ -53,7 +53,7 @@ public class PractisesActivity extends AppCompatActivity {
         });
         fm = getSupportFragmentManager();
         practiseslevelFragment = new PractisesLevelFragment();
-        fm.beginTransaction().add(R.id.container, practiseslevelFragment).commit();
+        fm.beginTransaction().replace(R.id.container, practiseslevelFragment).commit();
         tilte.setText(Html.fromHtml( "Practises><b>Levels</b> "));
         cancelTimer();
     }
@@ -79,19 +79,19 @@ public class PractisesActivity extends AppCompatActivity {
                 cancelTimer();
                 imgHome.setVisibility(View.VISIBLE);
                 ResultFragment resultFragment = new ResultFragment();
-                PractisesActivity.fm.beginTransaction().add(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
             }
             else if ((addSubNumTypeVisualFragment != null && addSubNumTypeVisualFragment.isVisible())) {
                 cancelTimer();
                 imgHome.setVisibility(View.VISIBLE);
                 ResultFragment resultFragment = new ResultFragment();
-                PractisesActivity.fm.beginTransaction().add(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
             }
             else if ((addSubNumTypeOralFragment != null && addSubNumTypeOralFragment.isVisible())) {
                 cancelTimer();
                 imgHome.setVisibility(View.VISIBLE);
                 ResultFragment resultFragment = new ResultFragment();
-                PractisesActivity.fm.beginTransaction().add(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+                PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
             }
             else{
                 super.onBackPressed();

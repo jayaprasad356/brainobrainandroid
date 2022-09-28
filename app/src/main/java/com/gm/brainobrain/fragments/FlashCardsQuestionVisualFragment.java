@@ -86,14 +86,14 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         seconds = session.getData(Constant.SECONDS);
         session.setData(Constant.SCORE,"0");
         question = getArguments().getInt("QUESTION");
-        name = getArguments().getString(Constant.NAME);
+        name = session.getData(Constant.QUESTION_NAME);
         tvTimer.setText(seconds + " Sec");
         tvQuestion.setText("Question "+question+" of 10");
         PractisesActivity.imgBack.setVisibility(View.GONE);
         PractisesActivity.imgHome.setVisibility(View.GONE);
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
         quesProgress.setProgress(question);
-        int noOfSeconds = Integer.parseInt(seconds) * 1000;
+        int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + " Sec");
@@ -415,7 +415,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
             bundle.putString("SECONDS", seconds);
             ResultFragment resultFragment = new ResultFragment();
             resultFragment.setArguments(bundle);
-            PractisesActivity.fm.beginTransaction().add(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+            PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
 
         }else {
             question = question + 1;

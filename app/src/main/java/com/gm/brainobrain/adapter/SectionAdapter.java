@@ -106,12 +106,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             bottomSheetDialog.dismiss();
             String sec = tvSec.getText().toString().trim();
             session.setData(Constant.SECONDS,sec);
-            session.setData(Constant.QUES_TYPE,Constant.NUMBER);
             session.setData(Constant.TYPE,title);
             session.setData(Constant.SECTION_ID,id);
+            session.setData(Constant.QUESTION_NAME, name);
             Bundle bundle = new Bundle();
             bundle.putInt("QUESTION", 1);
-            bundle.putString(Constant.NAME, name);
             getSections(bundle,title,type);
 
 
@@ -175,20 +174,23 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         session.setData(Constant.QUESTION_ARRAY,response);
                         if (type.equals("oral")){
+                            session.setData(Constant.QUES_TYPE,Constant.ORAL_NUMBER);
                             AddSubNumTypeOralFragment addSubNumTypeOralFragment = new AddSubNumTypeOralFragment();
                             addSubNumTypeOralFragment.setArguments(bundle);
-                            PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
+                            PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
                         }
                         else {
                             if (title.equals("Flash Cards")){
+                                session.setData(Constant.QUES_TYPE,Constant.FLASH_CARD);
                                 FlashCardsQuestionVisualFragment flashCardsQuestionVisualFragment = new FlashCardsQuestionVisualFragment();
                                 flashCardsQuestionVisualFragment.setArguments(bundle);
-                                PractisesActivity.fm.beginTransaction().add(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
+                                PractisesActivity.fm.beginTransaction().replace(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
 
                             }else {
+                                session.setData(Constant.QUES_TYPE,Constant.NUMBER);
                                 AddSubNumTypeVisualFragment addSubNumTypeVisualFragment = new AddSubNumTypeVisualFragment();
                                 addSubNumTypeVisualFragment.setArguments(bundle);
-                                PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeVisualFragment,Constant.ADDSUBNUMTYPEVISUALFRAGMENT).commit();
+                                PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeVisualFragment,Constant.ADDSUBNUMTYPEVISUALFRAGMENT).commit();
 
                             }
 
