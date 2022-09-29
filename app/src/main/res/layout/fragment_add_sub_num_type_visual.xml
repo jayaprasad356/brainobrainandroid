@@ -37,51 +37,39 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_16sdp"
                         android:textStyle="bold" />
-                    <LinearLayout
+                    <RelativeLayout
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:layout_alignParentEnd="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_14sdp"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/ic_timer" />
+                        android:layout_centerVertical="true">
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/cpbTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="20"
+                            android:layout_alignParentEnd="true"
+                            app:indicatorColor="@color/primaryColor"
+                            app:indicatorSize="@dimen/_35sdp"
+                            app:trackColor="@color/light_blue"
+                            app:trackCornerRadius="@dimen/_5sdp"
+                            app:trackThickness="@dimen/_5sdp" />
 
                         <TextView
-                            android:id="@+id/tvCountdoun"
+                            android:id="@+id/tvTimer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            android:text="00:00:00"
-                            android:textSize="@dimen/_16sdp" />
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginEnd="@dimen/_18sdp"
+                            android:text="20"
+                            android:textColor="@color/secondaryColor"
+                            android:textSize="16dp" />
+
+                    </RelativeLayout>
 
 
-                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_toStartOf="@+id/tvTimer"
-                        android:background="@drawable/ic_timer" />
-
-                    <TextView
-                        android:id="@+id/tvTimer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textColor="@color/secondaryColor"
-                        android:textSize="@dimen/_16sdp"
-                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

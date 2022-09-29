@@ -34,6 +34,7 @@ public class Constant {
     public static final String LEVEL = "level";
     public static final String LEVEL_ID = "level_id";
     public static final String SECTION_ID = "section_id";
+    public static final String LEVEL_NAME = "level_name";
     public static final String SCORE = "score";
     public static final String ID = "id";
     public static final String NUMBER = "number";
@@ -53,6 +54,10 @@ public class Constant {
     public static final String USER_PRACTICE_LEVELS_COUNT = "user_practice_levels_count" ;
     public static final String QUESTION = "question" ;
     public static final String QUESTION_NAME = "question_name" ;
+    public static final String FRAG_LOCATE = "frag_locate" ;
+    public static final String PRACTICE_FRAG = "practice_frag" ;
+    public static final String SECTION_FRAG = "section_frag" ;
+    public static final String EVENT_FRAG = "event_frag" ;
     public static final String ANSWERS = "answers" ;
     public static final String TOKEN = "token" ;
     public static final String NAME = "name" ;

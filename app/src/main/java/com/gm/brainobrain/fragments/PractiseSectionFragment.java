@@ -3,12 +3,14 @@ package com.gm.brainobrain.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +55,20 @@ public class PractiseSectionFragment extends Fragment {
         Level = session.getData(Constant.LEVEL);
         Id = getArguments().getString(Constant.ID);
         swipe = root.findViewById(R.id.swipe);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button even
+                Log.d("BACKBUTTON", "Back button clicks");
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises><b>"+Level+"</b> "));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
+        session.setData(Constant.FRAG_LOCATE,Constant.SECTION_FRAG);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

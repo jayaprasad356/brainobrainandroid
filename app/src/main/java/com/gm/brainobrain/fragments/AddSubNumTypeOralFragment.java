@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -25,12 +26,14 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.developer.kalert.KAlertDialog;
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.adapter.QuestionAdapter;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
 import com.gm.brainobrain.model.Question;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONArray;
@@ -50,7 +53,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
     String seconds;
     int question;
     LinearProgressIndicator quesProgress;
-    TextView tvQuestion,tvNumber,tvCountdoun;
+    TextView tvQuestion,tvNumber;
     Session session;
     RelativeLayout rl;
     String Level,Title,Number;
@@ -66,6 +69,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
     int countcomp = 0;
 
     int getQuestionLength = 0;
+    CircularProgressIndicator cpbTime;
 
 
     public AddSubNumTypeOralFragment() {
@@ -82,12 +86,25 @@ public class AddSubNumTypeOralFragment extends Fragment {
         rl = root.findViewById(R.id.rl);
         quesProgress = root.findViewById(R.id.quesProgress);
         tvQuestion = root.findViewById(R.id.tvQuestion);
+        cpbTime = root.findViewById(R.id.cpbTime);
         session = new Session(activity);
         seconds = session.getData(Constant.SECONDS);
         Level = session.getData(Constant.LEVEL);
         Title = session.getData(Constant.TYPE);
+        session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
         session.setData(Constant.SCORE,"0");
         question = getArguments().getInt("QUESTION");
+        cpbTime.setMax(Integer.parseInt(seconds));
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button even
+                Log.d("BACKBUTTON", "Back button clicks");
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
         Set<String> a=new HashSet<>();
         a.add("male");
         Voice v = new Voice("hi-in-x-hie-local",new Locale("hi_IN"),400,200,false,a);
@@ -104,10 +121,10 @@ public class AddSubNumTypeOralFragment extends Fragment {
         });
         tts.setVoice(v);
         tts.setEngineByPackageName("com.google.android.tts");
-        tvTimer.setText(seconds + " Sec");
+        tvTimer.setText(seconds);
         tvQuestion.setText("Question "+question+" of 10");
-        PractisesActivity.imgBack.setVisibility(View.INVISIBLE);
         PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
+        ((PractisesActivity) requireActivity()).startTimer();
 
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
 
@@ -118,34 +135,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
         countdownTime();
 
         return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tvCountdoun = view.findViewById(R.id.tvCountdoun);
-        running = true;
-        startTimer();
-
-
-    }
-
-    private void startTimer() {
-
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int hrs = s/3600;
-                int min = (s%36000)/60;
-                int sec = s%60;
-                String time = String.format("%02d:%02d:%02d",hrs,min,sec);
-                tvCountdoun.setText(time);
-                if (running){
-                    s++;
-                }
-                handler.postDelayed(this,0);
-            }
-        });
     }
 
 
@@ -193,12 +182,12 @@ public class AddSubNumTypeOralFragment extends Fragment {
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 + " Sec");
+                tvTimer.setText(millisUntilFinished / 1000 +"");
+                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
             }
 
             public void onFinish() {
                 ttsspeak = true;
-                tvTimer.setText("Time out");
                 if (nextquestion){
                     showDialog();
                 }
@@ -291,7 +280,11 @@ public class AddSubNumTypeOralFragment extends Fragment {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etAnswer.getText().toString().trim().equals("")){
+                if(etAnswer.getText().toString().trim().isEmpty()) {
+                    ShowAlertDialog();
+                }else if(etAnswer.getText().toString().trim().equals(".")) {
+                    ShowAlertDialog();
+                }else {
                     dialog.dismiss();
                     if (!etAnswer.getText().toString().trim().equals("")){
                         if (actanswer.equals(etAnswer.getText().toString().trim())){
@@ -301,6 +294,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
                     }
                     if (question == 10){
+                        ((PractisesActivity) requireActivity()).resetTimer();
                         PractisesActivity.imgHome.setVisibility(View.VISIBLE);
                         Bundle bundle = new Bundle();
                         bundle.putString("SECONDS", seconds);
@@ -318,9 +312,18 @@ public class AddSubNumTypeOralFragment extends Fragment {
                 }
 
 
+
+
             }
         });
 
         dialog.show();
+    }
+    private void ShowAlertDialog() {
+        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE, 0)
+                .setTitleText("oops")
+                .setContentText("Enter your answer")
+                .setConfirmText("ok")
+                .show();
     }
 }

@@ -135,9 +135,9 @@
                     android:id="@+id/cpbPractises"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:max="10"
                     app:indicatorColor="@color/primaryColor"
                     app:indicatorSize="@dimen/_50sdp"
-                    android:max="10"
                     app:trackColor="@color/light_blue"
                     app:trackCornerRadius="@dimen/_10sdp"
                     app:trackThickness="@dimen/_8sdp" />

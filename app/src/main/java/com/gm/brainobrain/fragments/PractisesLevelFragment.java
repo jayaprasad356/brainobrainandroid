@@ -57,6 +57,7 @@ public class PractisesLevelFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
         session = new Session(activity);
+        session.setData(Constant.FRAG_LOCATE,Constant.PRACTICE_FRAG);
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {

@@ -63,6 +63,7 @@ public class LevelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         }
         holder.itemView.setOnClickListener(view -> {
+            session.setData(Constant.LEVEL_NAME,level.getName());
             if (level.getName().equals("Level 10")){
                 DoublingFragment doublingFragment = new DoublingFragment();
                 PractisesActivity.fm.beginTransaction().replace(R.id.container, doublingFragment).commit();

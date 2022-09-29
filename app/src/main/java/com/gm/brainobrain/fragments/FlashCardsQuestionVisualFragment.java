@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,7 @@ import com.gm.brainobrain.R;
 import com.gm.brainobrain.adapter.QuestionAdapter;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONArray;
@@ -44,7 +46,7 @@ import java.util.Objects;
 public class FlashCardsQuestionVisualFragment extends Fragment {
     private  int s = 0;
     private  boolean running;
-    TextView tvTimer,tvCountdoun;
+    TextView tvTimer;
     Activity activity;
     String seconds;
     int question;
@@ -62,7 +64,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     String Level,Title;
     int score = 0 ;
     String actanswer,name;
-
+    CircularProgressIndicator cpbTime;
 
     public FlashCardsQuestionVisualFragment() {
         // Required empty public constructor
@@ -80,26 +82,40 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         tvTimer = root.findViewById(R.id.tvTimer);
         quesProgress = root.findViewById(R.id.quesProgress);
         tvQuestion = root.findViewById(R.id.tvQuestion);
+        cpbTime = root.findViewById(R.id.cpbTime);
         init(root);
+        session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
         Level = session.getData(Constant.LEVEL);
         Title = session.getData(Constant.TYPE);
         seconds = session.getData(Constant.SECONDS);
         session.setData(Constant.SCORE,"0");
         question = getArguments().getInt("QUESTION");
         name = session.getData(Constant.QUESTION_NAME);
-        tvTimer.setText(seconds + " Sec");
+        tvTimer.setText(seconds);
         tvQuestion.setText("Question "+question+" of 10");
-        PractisesActivity.imgBack.setVisibility(View.GONE);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button even
+                Log.d("BACKBUTTON", "Back button clicks");
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
         PractisesActivity.imgHome.setVisibility(View.GONE);
+        PractisesActivity.tvTimer.setVisibility(View.VISIBLE);
+        ((PractisesActivity) requireActivity()).startTimer();
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 + " Sec");
+                tvTimer.setText(millisUntilFinished / 1000 + "");
+                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
             }
             public void onFinish() {
-                tvTimer.setText("Time out");
+                //tvTimer.setText("Time out");
                 showDialog();
             }
         }.start();
@@ -109,36 +125,8 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tvCountdoun = view.findViewById(R.id.tvCountdoun);
-        running = true;
-        startTimer();
 
 
-    }
-
-    private void startTimer() {
-
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int hrs = s/3600;
-                int min = (s%36000)/60;
-                int sec = s%60;
-                String time = String.format("%02d:%02d:%02d",hrs,min,sec);
-                tvCountdoun.setText(time);
-                if (running){
-                    s++;
-                }
-                handler.postDelayed(this,0);
-
-
-            }
-        });
-    }
 
     private void setQuestion()
     {
@@ -408,8 +396,10 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
 
     private void next()
     {
+
         ((PractisesActivity) requireActivity()).cancelTimer();
         if (question == 10){
+            ((PractisesActivity) requireActivity()).resetTimer();
             PractisesActivity.imgHome.setVisibility(View.VISIBLE);
             Bundle bundle = new Bundle();
             bundle.putString("SECONDS", seconds);
@@ -425,19 +415,20 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     private void nextQuestion()
     {
         setQuestion();
-        tvTimer.setText(seconds + " Sec");
+        tvTimer.setText(seconds);
         tvQuestion.setText("Question "+question+" of 10");
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 + " Sec");
+                tvTimer.setText(millisUntilFinished / 1000 +"");
+                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
             }
 
             public void onFinish() {
 
-                tvTimer.setText("Time out");
+                //tvTimer.setText("Time out");
                 showDialog();
 
             }
@@ -463,7 +454,9 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etAnswer.getText().toString().isEmpty()) {
+                if(etAnswer.getText().toString().trim().isEmpty()) {
+                    ShowAlertDialog();
+                }else if(etAnswer.getText().toString().trim().equals(".")) {
                     ShowAlertDialog();
                 }else {
                     if(actanswer.equals(etAnswer.getText().toString().trim())){

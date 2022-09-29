@@ -11,31 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_14sdp"
-            android:orientation="horizontal"
-            android:padding="@dimen/_5sdp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_timer" />
-
-            <TextView
-                android:id="@+id/tvCountdoun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="2dp"
-                android:text="00:00:00"
-                android:textSize="16dp" />
-
-
-        </LinearLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,35 +27,37 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
-            <LinearLayout
-                android:layout_centerVertical="true"
-                android:gravity="end"
+        <RelativeLayout
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/cpbTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="1"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/timelinear"
+                app:indicatorColor="@color/primaryColor"
+                app:indicatorSize="@dimen/_35sdp"
+                app:trackColor="@color/light_blue"
+                app:trackCornerRadius="@dimen/_5sdp"
+                app:trackThickness="@dimen/_5sdp" />
+
+            <TextView
+                android:id="@+id/tvTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_5sdp">
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:text="0"
+                android:textColor="@color/secondaryColor"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_timer" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tvTimer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textColor="@color/secondaryColor"
-                    android:textSize="16dp" />
-
-
-            </LinearLayout>
         </RelativeLayout>
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/quesProgress"

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,7 @@ import com.gm.brainobrain.adapter.QuestionAdapter;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
 import com.gm.brainobrain.model.Number;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONArray;
@@ -49,7 +51,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     String seconds;
     int question;
     LinearProgressIndicator quesProgress;
-    TextView tvQuestion,tvCountdoun;
+    TextView tvQuestion;
     private  boolean running;
     private int s = 0;
     Session session;
@@ -62,8 +64,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     int score = 0 ;
     int noOfSeconds;
     String actanswer;
-    private String Question;
-    int qno = 0,qpno = 0;
+    CircularProgressIndicator cpbTime;
     public AddSubNumTypeVisualFragment() {
         // Required empty public constructor
     }
@@ -80,16 +81,27 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         etAnswer = root.findViewById(R.id.etAnswer);
         btnSubmit = root.findViewById(R.id.btnSubmit);
         tvQuestionContent = root.findViewById(R.id.tvQuestionContent);
+        cpbTime = root.findViewById(R.id.cpbTime);
         session = new Session(activity);
-        seconds = session.getData(Constant.SECONDS);
         Level = session.getData(Constant.LEVEL);
         Title = session.getData(Constant.TYPE);
         tvTimer = root.findViewById(R.id.tvTimer);
         question = getArguments().getInt("QUESTION");
         session.setData(Constant.SCORE,"0");
+        session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
         tvQuestion.setText("Question "+question+" of 10");
+        ((PractisesActivity) requireActivity()).startTimer();
+        seconds = "20";
         noOfSeconds = Integer.parseInt(seconds) * 1000;
-        PractisesActivity.imgBack.setVisibility(View.INVISIBLE);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button even
+                Log.d("BACKBUTTON", "Back button clicks");
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
         PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
         PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
         quesProgress.setProgress(question);
@@ -107,35 +119,9 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             }
         });
 
-        seconds = session.getData(Constant.SECONDS);
-        tvTimer.setText(seconds + " Sec");
+        tvTimer.setText(seconds);
         setTvCountdoun();
         return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tvCountdoun = view.findViewById(R.id.tvCountdoun);
-        running = true;
-        startTimer();
-    }
-    private void startTimer() {
-
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int hrs = s/3600;
-                int min = (s%36000)/60;
-                int sec = s%60;
-                String time = String.format("%02d:%02d:%02d",hrs,min,sec);
-                tvCountdoun.setText(time);
-                if (running){
-                    s++;
-                }
-                handler.postDelayed(this,0);
-            }
-        });
     }
 
 
@@ -146,13 +132,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
         tvQuestion.setText("Question "+question+" of 10");
         quesProgress.setProgress(question);
-        int noOfSeconds = Integer.parseInt(seconds) * 500;
+        int noOfSeconds = Integer.parseInt(seconds) * 1000;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 + " Sec");
+                tvTimer.setText(millisUntilFinished / 1000 + "");
+                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
             }
             public void onFinish() {
-                tvTimer.setText("Time out");
+                //tvTimer.setText("Time out");
                 next();
             }
         }.start();
@@ -169,6 +156,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         }
 
         if (question == 10){
+            ((PractisesActivity) requireActivity()).resetTimer();
             PractisesActivity.imgHome.setVisibility(View.VISIBLE);
             Bundle bundle = new Bundle();
             bundle.putString("SECONDS", seconds);
@@ -243,12 +231,13 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         {
             @Override
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 + " Sec");
+                tvTimer.setText(millisUntilFinished / 1000 + "");
+                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
             }
 
             @Override
             public void onFinish() {
-                tvTimer.setText("Time out");
+                //tvTimer.setText("Time out");
                 next();
             }
         }.start();
