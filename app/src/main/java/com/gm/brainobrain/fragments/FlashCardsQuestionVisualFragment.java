@@ -362,27 +362,27 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         inVisibleAll();
     }
     private void inVisibleAll() {
-        c1bdice1.setVisibility(View.GONE);
+        c1bdice1.setVisibility(View.INVISIBLE);
         c1sdice1.setVisibility(View.GONE);
         c1sdice2.setVisibility(View.GONE);
         c1sdice3.setVisibility(View.GONE);
         c1sdice4.setVisibility(View.GONE);
-        c2bdice1.setVisibility(View.GONE);
+        c2bdice1.setVisibility(View.INVISIBLE);
         c2sdice1.setVisibility(View.GONE);
         c2sdice2.setVisibility(View.GONE);
         c2sdice3.setVisibility(View.GONE);
         c2sdice4.setVisibility(View.GONE);
-        c3bdice1.setVisibility(View.GONE);
+        c3bdice1.setVisibility(View.INVISIBLE);
         c3sdice1.setVisibility(View.GONE);
         c3sdice2.setVisibility(View.GONE);
         c3sdice3.setVisibility(View.GONE);
         c3sdice4.setVisibility(View.GONE);
-        c4bdice1.setVisibility(View.GONE);;
+        c4bdice1.setVisibility(View.INVISIBLE);;
         c4sdice1.setVisibility(View.GONE);
         c4sdice2.setVisibility(View.GONE);
         c4sdice3.setVisibility(View.GONE);
         c4sdice4.setVisibility(View.GONE);
-        c5bdice1.setVisibility(View.GONE);
+        c5bdice1.setVisibility(View.INVISIBLE);
         c5sdice1.setVisibility(View.GONE);
         c5sdice2.setVisibility(View.GONE);
         c5sdice3.setVisibility(View.GONE);

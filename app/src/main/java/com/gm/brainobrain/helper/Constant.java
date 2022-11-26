@@ -18,6 +18,10 @@ public class Constant {
         return BaseUrl + "practice/"+LevelId+"/"+SectionId;
 
     }
+    public static String PRACTICE_SECTION_STORE_STATS_URL(String LevelId,String SectionId) {
+        return BaseUrl + "practice/"+LevelId+"/"+SectionId+"/store-stats";
+
+    }
 
 
 
@@ -50,6 +54,10 @@ public class Constant {
     public static final String API_ERROR = "Server Not Respond";
     public static final String DATA = "data" ;
     public static final String LEVELS = "levels" ;
+    public static final String NUMBER_OF_QUESTIONS = "number_of_questions" ;
+    public static final String CORRECT_ANSWERS = "correct_answers" ;
+    public static final String TIME_TAKEN = "time_taken" ;
+    public static final String AVERAGE_TIME_TAKEN = "average_time_taken" ;
     public static final String USER_LEVELS = "user_levels" ;
     public static final String USER_PRACTICE_LEVELS_COUNT = "user_practice_levels_count" ;
     public static final String QUESTION = "question" ;

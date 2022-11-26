@@ -82,6 +82,7 @@ public class PractiseSectionFragment extends Fragment {
 
     private void sectionList()
     {
+        Log.d("TOKEN_PRACTISE",session.getData(Constant.TOKEN) + "\n"  + Id);
         Map<String, String> params = new HashMap<>();
         params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
         ApiConfig.RequestToVolley((result, response) -> {

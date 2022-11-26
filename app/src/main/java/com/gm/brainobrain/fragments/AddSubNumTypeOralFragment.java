@@ -64,11 +64,8 @@ public class AddSubNumTypeOralFragment extends Fragment {
     int qno = 0,qpno = 0;
     boolean nextquestion = false;
     int score = 0 ;
-    private  boolean running;
     String actanswer;
     int countcomp = 0;
-
-    int getQuestionLength = 0;
     CircularProgressIndicator cpbTime;
 
 
@@ -164,7 +161,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
     private void countdownTime() {
         Number = getQuestion();
-        getQuestionLength = getQuestion().length();
         tvNumber.setText(Number);
         Random r = new Random();
         int CustomColors = Color.argb(225 ,r.nextInt(256),r.nextInt(256),r.nextInt(256));
@@ -208,9 +204,11 @@ public class AddSubNumTypeOralFragment extends Fragment {
             JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
             if (jsonObject.getBoolean(Constant.SUCCESS))
             {
+
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                JSONArray jsonArray1 = jsonArray.getJSONObject(qno).getJSONArray(Constant.QUESTION);
-                JSONArray jsonArray2 = jsonArray.getJSONObject(qno).getJSONArray(Constant.ANSWERS);
+                JSONArray jsonArray1 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.QUESTION);
+                JSONArray jsonArray2 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.ANSWERS);
+                Log.d("SUBNUMTYPE",(question - 1) + " - "+jsonArray1.toString() + "");
                 actanswer = jsonArray2.get(0).toString();
                 if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division"))
                 {
@@ -240,7 +238,8 @@ public class AddSubNumTypeOralFragment extends Fragment {
                     Question = s;
                     nextquestion = true;
                     qpno = 0;
-                    qno = qno + 1;
+
+
 
                 }else {
 
@@ -248,7 +247,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
                     if (jsonArray1.length() - 1 == qpno){
                         nextquestion = true;
                         qpno = 0;
-                        qno = qno + 1;
+
                     }else {
                         nextquestion = false;
                         qpno = qpno + 1;

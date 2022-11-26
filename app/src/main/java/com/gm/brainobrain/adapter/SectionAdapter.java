@@ -1,6 +1,7 @@
 package com.gm.brainobrain.adapter;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,6 +168,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Map<String, String> params = new HashMap<>();
         params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
         ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("SECTION_RES",response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
