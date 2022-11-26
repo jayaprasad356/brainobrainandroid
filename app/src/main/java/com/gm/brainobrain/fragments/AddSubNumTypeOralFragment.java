@@ -319,7 +319,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
         dialog.show();
     }
     private void ShowAlertDialog() {
-        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE, 0)
+        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)
                 .setTitleText("oops")
                 .setContentText("Enter your answer")
                 .setConfirmText("ok")

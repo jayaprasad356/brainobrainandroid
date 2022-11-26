@@ -25,7 +25,9 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.developer.kalert.KAlertDialog;
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.adapter.QuestionAdapter;
@@ -129,7 +131,6 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     {
         ((PractisesActivity) requireActivity()).cancelTimer();
         numberList();
-
         tvQuestion.setText("Question "+question+" of 10");
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 1000;
@@ -147,30 +148,37 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
     private void next()
     {
-        ((PractisesActivity) requireActivity()).cancelTimer();
-        if (!etAnswer.getText().toString().trim().equals("")){
+       // ((PractisesActivity) requireActivity()).cancelTimer();
+        if (etAnswer.getText().toString().trim().equals("")){
+            ShowAlertDialog();
+        }else{
             if (actanswer.equals(etAnswer.getText().toString().trim())){
                 score = score + 1;
                 session.setData(Constant.SCORE,score +"");
             }
-        }
-
-        if (question == 10){
-            ((PractisesActivity) requireActivity()).resetTimer();
-            PractisesActivity.imgHome.setVisibility(View.VISIBLE);
-            Bundle bundle = new Bundle();
-            bundle.putString("SECONDS", seconds);
-            ResultFragment resultFragment = new ResultFragment();
-            resultFragment.setArguments(bundle);
-            PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
-
-        }else {
-            question = question + 1;
-            etAnswer.getText().clear();
-            nextQuestion();
+            if (question == 10){
+                ((PractisesActivity) requireActivity()).resetTimer();
+                PractisesActivity.imgHome.setVisibility(View.VISIBLE);
+                Bundle bundle = new Bundle();
+                bundle.putString("SECONDS", seconds);
+                ResultFragment resultFragment = new ResultFragment();
+                resultFragment.setArguments(bundle);
+                PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+            }else {
+                question = question + 1;
+                etAnswer.getText().clear();
+                nextQuestion();
+            }
         }
     }
 
+    private void ShowAlertDialog() {
+        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)
+                .setTitleText("oops")
+                .setContentText("Enter your answer")
+                .setConfirmText("ok")
+                .show();
+    }
 
 
     private String numberList() {
