@@ -25,6 +25,7 @@ import com.gm.brainobrain.model.Section;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.Slider;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -168,13 +169,17 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Map<String, String> params = new HashMap<>();
         params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
         ApiConfig.RequestToVolley((result, response) -> {
-            Log.d("SECTION_RES",response);
+
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         session.setData(Constant.QUESTION_ARRAY,response);
+
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        session.setData(Constant.NUMBER_OF_QUESTIONS,jsonArray.length() + "");
+                        Log.d("SECTION_RES",jsonArray.length() + "");
                         if (type.equals("oral")){
                             session.setData(Constant.QUES_TYPE,Constant.ORAL_NUMBER);
                             AddSubNumTypeOralFragment addSubNumTypeOralFragment = new AddSubNumTypeOralFragment();

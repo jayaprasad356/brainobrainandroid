@@ -149,7 +149,9 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     private void next()
     {
        // ((PractisesActivity) requireActivity()).cancelTimer();
-        if (etAnswer.getText().toString().trim().equals("")){
+        if(etAnswer.getText().toString().trim().isEmpty()) {
+            ShowAlertDialog();
+        }else if(etAnswer.getText().toString().trim().equals(".")) {
             ShowAlertDialog();
         }else{
             if (actanswer.equals(etAnswer.getText().toString().trim())){

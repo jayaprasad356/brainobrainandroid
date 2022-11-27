@@ -130,6 +130,7 @@ public class PractisesActivity extends AppCompatActivity {
 
                 // Set the text view text.
                 tvTimer.setText(time);
+                session.setData(Constant.TIME_TAKEN,time);
 
                 // If running is true, increment the
                 // seconds variable.

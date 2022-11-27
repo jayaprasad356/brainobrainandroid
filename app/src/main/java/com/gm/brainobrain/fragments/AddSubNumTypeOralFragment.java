@@ -208,7 +208,6 @@ public class AddSubNumTypeOralFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                 JSONArray jsonArray1 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.QUESTION);
                 JSONArray jsonArray2 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.ANSWERS);
-                Log.d("SUBNUMTYPE",(question - 1) + " - "+jsonArray1.toString() + "");
                 actanswer = jsonArray2.get(0).toString();
                 if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division"))
                 {

@@ -89,10 +89,10 @@ public class ResultFragment extends Fragment {
     {
         Map<String, String> params = new HashMap<>();
         params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
-        params.put(Constant.NUMBER_OF_QUESTIONS,"1");
-        params.put(Constant.CORRECT_ANSWERS,"5");
-        params.put(Constant.TIME_TAKEN,"00:01:12");
-        params.put(Constant.AVERAGE_TIME_TAKEN,"00:00:18");
+        params.put(Constant.NUMBER_OF_QUESTIONS,  session.getData(Constant.NUMBER_OF_QUESTIONS));
+        params.put(Constant.CORRECT_ANSWERS,session.getData(Constant.SCORE));
+        params.put(Constant.TIME_TAKEN,session.getData(Constant.TIME_TAKEN));
+        params.put(Constant.AVERAGE_TIME_TAKEN,"00:"+session.getData(Constant.TIME_TAKEN));
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("RESULT_RES",response);
             if (result) {
