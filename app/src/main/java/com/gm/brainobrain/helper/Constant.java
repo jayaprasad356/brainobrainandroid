@@ -4,6 +4,7 @@ public class Constant {
     public static final String MainBaseUrl = "https://demo.trainingzone.in/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login";
+    public static final String FILTER_URL = "https://demo.trainingzone.in/api/user/stats-calendar";
     public static final String USER_INFO_URL = BaseUrl + "user/me";
     public static final String PRACTICE_LEVEL_URL = BaseUrl + "practice/levels";
     public Constant(){
