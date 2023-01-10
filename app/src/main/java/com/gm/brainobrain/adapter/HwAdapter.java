@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gm.brainobrain.DateSelectedListener;
 import com.gm.brainobrain.R;
+
 import com.gm.brainobrain.model.HomeCollection;
 
 import java.text.DateFormat;
@@ -30,6 +32,7 @@ public class HwAdapter extends BaseAdapter {
     private java.util.Calendar month;
     private java.util.Calendar year;
     public GregorianCalendar pmonth;
+
     /**
      * calendar instance for previous month for getting complete view
      */
@@ -49,12 +52,13 @@ public class HwAdapter extends BaseAdapter {
     private String gridvalue;
     public static TextView dayView;
     public static ImageView ampu;
+    DateSelectedListener dateSelectedListener;
 
     Typeface typefaceText;
     Typeface typeface;
     Dialog myDialog;
 
-    public HwAdapter(Activity context, GregorianCalendar monthCalendar, ArrayList<HomeCollection> date_collection_arr) {
+    public HwAdapter(Activity context, GregorianCalendar monthCalendar, ArrayList<HomeCollection> date_collection_arr, DateSelectedListener dateSelectedListener) {
         this.date_collection_arr = date_collection_arr;
         HwAdapter.day_string = new ArrayList<String>();
         Locale.setDefault(Locale.US);
@@ -67,6 +71,7 @@ public class HwAdapter extends BaseAdapter {
         df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         curentDateString = df.format(selectedDate.getTime());
         refreshDays();
+        this.dateSelectedListener = dateSelectedListener;
 
     }
 
@@ -153,6 +158,12 @@ public class HwAdapter extends BaseAdapter {
         }
 
         dayView.setText(gridvalue);
+        dayView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateSelectedListener.onSuccess(getItem(position).toString());
+            }
+        });
         // dayView.setTypeface(typefaceText);
 
         // create date string for comparison
@@ -258,14 +269,14 @@ public class HwAdapter extends BaseAdapter {
 //                        v.setBackgroundResource(R.drawable.festival_currentday);
 //
 //                    }
-                    if (name.equals("false"))  {
+                    if (name.equals("false")) {
                         v.setBackgroundResource(R.drawable.false_circle);
                         if (pos == 0 || pos == 7 || pos == 14 || pos == 21 || pos == 28 || pos == 35) {
                             txt.setTextColor(Color.parseColor("#000000"));
                         } else {
                             txt.setTextColor(Color.parseColor("#000000"));
                         }
-                    }else {
+                    } else {
                         v.setBackgroundResource(R.drawable.true_circle);
                     }
 

@@ -1,10 +1,10 @@
 package com.gm.brainobrain.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,15 +20,17 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gm.brainobrain.DateSelectedListener;
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.adapter.HwAdapter;
+import com.gm.brainobrain.adapter.StaticsAdapter;
 import com.gm.brainobrain.helper.ApiConfig;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
 import com.gm.brainobrain.model.HomeCollection;
+import com.gm.brainobrain.model.StaticsData;
 import com.gm.brainobrain.model.XmlRecords;
 import com.google.gson.Gson;
 
@@ -63,7 +65,7 @@ public class CalendarActivity extends AppCompatActivity {
     static int cutmonth;
     private GridView gridview;
     Uri bitmapUri;
-
+    DateSelectedListener dateSelectedListener;
     private String loadXmlFile;
     private ArrayList<XmlRecords> records;
     private boolean changed;
@@ -81,11 +83,16 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
+        dateSelectedListener = selectedDate -> {
+            Toast.makeText(activity, selectedDate, Toast.LENGTH_SHORT).show();
+            calenderStatistics(selectedDate);
+        };
         activity = CalendarActivity.this;
         session = new Session(activity);
 
         recyclerView = findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         HomeCollection.date_collection_arr = new ArrayList<HomeCollection>();
 
@@ -95,7 +102,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         cal_month = (GregorianCalendar) GregorianCalendar.getInstance();
         cal_month_copy = (GregorianCalendar) cal_month.clone();
-        hwAdapter = new HwAdapter(activity, cal_month, HomeCollection.date_collection_arr);
+        hwAdapter = new HwAdapter(activity, cal_month, HomeCollection.date_collection_arr, dateSelectedListener);
         currentMonth = cal_month.get(GregorianCalendar.MONTH);
         cutmonth = cal_month.get(GregorianCalendar.MONTH);
 
@@ -170,9 +177,9 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("TOKEN_API",session.getData(Constant.TOKEN));
+        Log.d("TOKEN_API", session.getData(Constant.TOKEN));
 
-        //calenderStatistics();
+
         calenderApi();
 
     }
@@ -180,15 +187,14 @@ public class CalendarActivity extends AppCompatActivity {
     private void calenderApi() {
         Map<String, String> params = new HashMap<>();
         ApiConfig.RequestToVolley((result, response) -> {
-            Log.d("CALENDER_API",response);
+            Log.d("CALENDER_API", response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject holeData = jsonObject.getJSONObject("data");
                     JSONArray data = holeData.getJSONArray("data");
-                    Log.d("CALAENDER_VAL",data+"");
+                    Log.d("CALAENDER_VAL", data + "");
                     System.out.println(holeData);
-
 
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject uniqueData = data.getJSONObject(i);
@@ -196,15 +202,13 @@ public class CalendarActivity extends AppCompatActivity {
                         String date = "";
 //                        String desc = status ? "true" : "false";
                         date = uniqueData.getString("date");
-                        HomeCollection.date_collection_arr.add(new HomeCollection(date, "bhogi", status+""));
+                        HomeCollection.date_collection_arr.add(new HomeCollection(date, "bhogi", status + ""));
 
                     }
                     for (int i = 0; i < HomeCollection.date_collection_arr.size(); i++) {
-                        if (HomeCollection.date_collection_arr.get(i).date.equals("2023-01-08")){
-                            Log.d("CALAENDER_STA",HomeCollection.date_collection_arr.get(i).description+""+i);
+                        if (HomeCollection.date_collection_arr.get(i).date.equals("2023-01-08")) {
+                            Log.d("CALAENDER_STA", HomeCollection.date_collection_arr.get(i).description + "" + i);
                         }
-
-
                     }
 
                     gridview.setAdapter(hwAdapter);
@@ -214,47 +218,41 @@ public class CalendarActivity extends AppCompatActivity {
                 }
 
             }
-        }, activity, Constant.CALENDER_STATS_URL, params,true, 0);
+        }, activity, Constant.CALENDER_STATS_URL, params, true, 0);
 
     }
 
-    private void calenderStatistics()
-    {
+    private void calenderStatistics(String selectedDate) {
+        System.out.println(selectedDate);
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.DATE,"2023-01-10");
+        params.put(Constant.DATE, selectedDate);
         ApiConfig.RequestToVolley((result, response) -> {
-            Log.d("CALENDER_API",response);
+            Log.d("CALENDER_API", response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    Log.d("CALAENDER_VAL",data+"");
-
+                    JSONArray data = jsonObject.getJSONArray(Constant.DATA);
+                    Log.d("CALAENDER_VAL", data + "");
+                    Gson g = new Gson();
+                    ArrayList<StaticsData> staticsData = new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject uniqueData = data.getJSONObject(i);
-                        boolean status = uniqueData.getBoolean("data_exist");
-                        String date = "";
-//                        String desc = status ? "true" : "false";
-                        date = uniqueData.getString("date");
-                        HomeCollection.date_collection_arr.add(new HomeCollection(date, "bhogi", status+""));
-
-                    }
-                    for (int i = 0; i < HomeCollection.date_collection_arr.size(); i++) {
-                        if (HomeCollection.date_collection_arr.get(i).date.equals("2023-01-08")){
-                            Log.d("CALAENDER_STA",HomeCollection.date_collection_arr.get(i).description+""+i);
+                        if (uniqueData != null) {
+                            StaticsData group = g.fromJson(uniqueData.toString(), StaticsData.class);
+                            staticsData.add(group);
+                        } else {
+                            break;
                         }
-
-
                     }
-
-                    gridview.setAdapter(hwAdapter);
+                    StaticsAdapter adapter = new StaticsAdapter(staticsData, activity);
+                    recyclerView.setAdapter(adapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
-        }, activity, Constant.CALENDER_STATS_DAY_URL, params,true, 1);
+        }, activity, Constant.CALENDER_STATS_DAY_URL, params, true, 1);
 
     }
 
