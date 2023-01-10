@@ -4,7 +4,8 @@ public class Constant {
     public static final String MainBaseUrl = "https://demo.trainingzone.in/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login";
-    public static final String FILTER_URL = "https://demo.trainingzone.in/api/user/stats-calendar";
+    public static final String CALENDER_STATS_URL = BaseUrl + "user/stats-calendar";
+    public static final String CALENDER_STATS_DAY_URL = BaseUrl + "user/stats-day";
     public static final String USER_INFO_URL = BaseUrl + "user/me";
     public static final String PRACTICE_LEVEL_URL = BaseUrl + "practice/levels";
     public Constant(){
@@ -54,6 +55,7 @@ public class Constant {
 
     public static final String API_ERROR = "Server Not Respond";
     public static final String DATA = "data" ;
+    public static final String DATE = "date" ;
     public static final String LEVELS = "levels" ;
     public static final String NUMBER_OF_QUESTIONS = "number_of_questions" ;
     public static final String CORRECT_ANSWERS = "correct_answers" ;

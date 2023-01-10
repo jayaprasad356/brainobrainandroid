@@ -8,6 +8,9 @@
     <item android:id="@+id/profileitem"
         android:title="Profile">
     </item>
+    <item android:id="@+id/statisticsitem"
+        android:title="Statistics">
+    </item>
 
     <item android:id="@+id/logoutitem"
         android:title="Logout">

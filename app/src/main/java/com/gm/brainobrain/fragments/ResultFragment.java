@@ -87,12 +87,18 @@ public class ResultFragment extends Fragment {
 
     private void updateResult()
     {
+        String currentString = session.getData(Constant.TIME_TAKEN);
+        String[] separated = currentString.split(":");
+        String avgsec =  ((Integer.parseInt(separated[0]) /2) + ":" +(Integer.parseInt(separated[1]) /2) + "");
+
+
+
         Map<String, String> params = new HashMap<>();
         params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
         params.put(Constant.NUMBER_OF_QUESTIONS,  session.getData(Constant.NUMBER_OF_QUESTIONS));
         params.put(Constant.CORRECT_ANSWERS,session.getData(Constant.SCORE));
-        params.put(Constant.TIME_TAKEN,session.getData(Constant.TIME_TAKEN));
-        params.put(Constant.AVERAGE_TIME_TAKEN,"00:"+session.getData(Constant.TIME_TAKEN));
+        params.put(Constant.TIME_TAKEN,"00:"+session.getData(Constant.TIME_TAKEN));
+        params.put(Constant.AVERAGE_TIME_TAKEN,"00:"+avgsec);
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("RESULT_RES",response);
             if (result) {

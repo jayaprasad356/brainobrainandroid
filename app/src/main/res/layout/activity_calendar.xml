@@ -8,13 +8,10 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/headerMonth"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/blue_btn_bg_color">
-
+        android:background="@color/primaryColor">
       <ImageButton
           android:id="@+id/ib_prev"
           android:layout_width="70dp"
@@ -22,31 +19,21 @@
           android:layout_gravity="center"
           app:srcCompat="@drawable/left_arrow"
           android:scaleType="fitXY"
+          android:padding="@dimen/_5sdp"
           android:background="@null"/>
-
-
-      <RelativeLayout
-          android:layout_width="0dp"
+      <TextView
+          android:id="@+id/tv_month"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/tv_month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:paddingTop="@dimen/_10sdp"
-            android:layout_gravity="center"
-            android:text="Year - 2018"
-            android:layout_marginTop="-10dp"
-            android:textColor="@color/white"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:textStyle="bold" />
-
-      </RelativeLayout>
-
+          android:layout_centerHorizontal="true"
+          android:layout_gravity="center"
+          android:layout_marginTop="@dimen/_5sdp"
+          android:gravity="center"
+          android:text="Year - 2018"
+          android:textAlignment="center"
+          android:textColor="@color/white"
+          android:textSize="@dimen/_15sdp"
+           />
       <ImageButton
           android:id="@+id/Ib_next"
           android:layout_width="70dp"
@@ -54,17 +41,17 @@
           android:layout_gravity="center"
           app:srcCompat="@drawable/righ_arrow"
           android:scaleType="fitXY"
+          android:padding="@dimen/_5sdp"
+          android:layout_alignParentEnd="true"
           android:background="@null"/>
 
-    </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_below="@+id/headerMonth"
         android:orientation="vertical"
-        android:background="@color/light_blue">
+        android:background="@color/primaryLightColor">
 
 
       <TableRow
@@ -72,7 +59,7 @@
           android:id="@+id/tableRow1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="-7dp">
+          >
 
         <TextView
             android:id="@+id/TextView06"
@@ -83,8 +70,8 @@
             android:text="Sunday"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp"
+            />
 
         <TextView
             android:id="@+id/TextView05"
@@ -94,8 +81,7 @@
             android:gravity="center"
             android:text="Monday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/TextView04"
@@ -105,8 +91,7 @@
             android:gravity="center"
             android:text="Tuesday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/TextView03"
@@ -117,8 +102,7 @@
             android:layout_marginRight="5dp"
             android:text="Wednesday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp"/>
 
         <TextView
             android:id="@+id/TextView02"
@@ -129,8 +113,7 @@
             android:layout_marginRight="5dp"
             android:text="Thursday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/TextView01"
@@ -141,8 +124,7 @@
             android:layout_marginRight="5dp"
             android:text="Friday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp"/>
 
         <TextView
             android:id="@+id/textView1"
@@ -153,8 +135,7 @@
             android:layout_marginRight="5dp"
             android:text="Saturday"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_8sdp" />
 
       </TableRow>
 
@@ -167,21 +148,15 @@
         android:layout_height="180dp"
         android:nestedScrollingEnabled="true"
         android:gravity="center"
-        android:background="@color/blue_btn_bg_color"
+        android:background="@color/primaryColor"
         android:listSelector="@android:color/transparent"
         android:numColumns="7">
     </GridView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/material_blue_grey_80">
-
-
-    </RelativeLayout>
-
-
-
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"/>
 
   </LinearLayout>
 

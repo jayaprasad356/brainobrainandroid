@@ -1,8 +1,10 @@
 package com.gm.brainobrain.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,10 +20,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.adapter.HwAdapter;
+import com.gm.brainobrain.helper.ApiConfig;
+import com.gm.brainobrain.helper.Constant;
+import com.gm.brainobrain.helper.Session;
 import com.gm.brainobrain.model.HomeCollection;
 import com.gm.brainobrain.model.XmlRecords;
 import com.google.gson.Gson;
@@ -67,6 +73,8 @@ public class CalendarActivity extends AppCompatActivity {
 
 
     private TextView tv_month;
+    RecyclerView recyclerView;
+    Session session;
     private String[] month = {"January", "February", "March", "Aprial", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     @Override
@@ -75,22 +83,15 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         activity = CalendarActivity.this;
+        session = new Session(activity);
 
+        recyclerView = findViewById(R.id.recyclerView);
 
         HomeCollection.date_collection_arr = new ArrayList<HomeCollection>();
 
-        apicall();
+        //apicall();
 
         //**********2019 Holidays **************
-
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-01-01", "bhogi", "false"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-01-14", "pongal", "false"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-01-15", "pongal", "true"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-01-26", "republic", "* రిపబ్లిక్ డే *"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-02-18", "shivaratri", "* మహాశివరాత్రి *"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-03-07", "holi", "* హోలీ  పౌర్ణమి *"));
-        HomeCollection.date_collection_arr.add(new HomeCollection("2023-03-22", "ugadi", " * ఉగాది పండుగ *"));
-
 
         cal_month = (GregorianCalendar) GregorianCalendar.getInstance();
         cal_month_copy = (GregorianCalendar) cal_month.clone();
@@ -169,16 +170,98 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
+        Log.d("TOKEN_API",session.getData(Constant.TOKEN));
+
+        //calenderStatistics();
+        calenderApi();
+
+    }
+
+    private void calenderApi() {
+        Map<String, String> params = new HashMap<>();
+        ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("CALENDER_API",response);
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject holeData = jsonObject.getJSONObject("data");
+                    JSONArray data = holeData.getJSONArray("data");
+                    Log.d("CALAENDER_VAL",data+"");
+                    System.out.println(holeData);
+
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject uniqueData = data.getJSONObject(i);
+                        boolean status = uniqueData.getBoolean("data_exist");
+                        String date = "";
+//                        String desc = status ? "true" : "false";
+                        date = uniqueData.getString("date");
+                        HomeCollection.date_collection_arr.add(new HomeCollection(date, "bhogi", status+""));
+
+                    }
+                    for (int i = 0; i < HomeCollection.date_collection_arr.size(); i++) {
+                        if (HomeCollection.date_collection_arr.get(i).date.equals("2023-01-08")){
+                            Log.d("CALAENDER_STA",HomeCollection.date_collection_arr.get(i).description+""+i);
+                        }
+
+
+                    }
+
+                    gridview.setAdapter(hwAdapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, activity, Constant.CALENDER_STATS_URL, params,true, 0);
+
+    }
+
+    private void calenderStatistics()
+    {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.DATE,"2023-01-10");
+        ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("CALENDER_API",response);
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    Log.d("CALAENDER_VAL",data+"");
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject uniqueData = data.getJSONObject(i);
+                        boolean status = uniqueData.getBoolean("data_exist");
+                        String date = "";
+//                        String desc = status ? "true" : "false";
+                        date = uniqueData.getString("date");
+                        HomeCollection.date_collection_arr.add(new HomeCollection(date, "bhogi", status+""));
+
+                    }
+                    for (int i = 0; i < HomeCollection.date_collection_arr.size(); i++) {
+                        if (HomeCollection.date_collection_arr.get(i).date.equals("2023-01-08")){
+                            Log.d("CALAENDER_STA",HomeCollection.date_collection_arr.get(i).description+""+i);
+                        }
+
+
+                    }
+
+                    gridview.setAdapter(hwAdapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, activity, Constant.CALENDER_STATS_DAY_URL, params,true, 1);
+
     }
 
     private void apicall() {
         String authKey = "3|s5f5XrwsClIc43aSAgAsT4q3e9Btxxs8CcrpVoq9";
         String url = "https://demo.trainingzone.in/api/user/stats-calendar";
-
-// Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-
-// Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

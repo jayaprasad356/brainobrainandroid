@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:background="@drawable/border1">
-
-
         <TextView
             android:id="@+id/tvTitlelogo"
             android:layout_width="match_parent"

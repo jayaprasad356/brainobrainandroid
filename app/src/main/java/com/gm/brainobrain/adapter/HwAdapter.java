@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gm.brainobrain.R;
 import com.gm.brainobrain.model.HomeCollection;
@@ -252,33 +253,31 @@ public class HwAdapter extends BaseAdapter {
 
                     } else if ((Integer.parseInt(gridvalue) < 7) && (pos > 28)) {
 
-                    } else if (day_string.get(pos).equals(curentDateString)) {
-                        v.setBackgroundResource(R.drawable.festival_currentday);
-
-                    } else if (name.equals("Amayasya")) {
-                        ampu.setVisibility(View.VISIBLE);
-                        //ampu.setBackgroundResource(R.drawable.amaasya);
-
-                    } else if (name.equals("Purnami")) {
-                        ampu.setVisibility(View.VISIBLE);
-                        ampu.setBackgroundResource(R.drawable.punnami);
-                        //v.setBackgroundResource(R.drawable.paurnami);
-
-                    } else if (name.equals("false"))  {
+                    }
+//                    else if (day_string.get(pos).equals(curentDateString)) {
+//                        v.setBackgroundResource(R.drawable.festival_currentday);
+//
+//                    }
+                    if (name.equals("false"))  {
                         v.setBackgroundResource(R.drawable.false_circle);
                         if (pos == 0 || pos == 7 || pos == 14 || pos == 21 || pos == 28 || pos == 35) {
                             txt.setTextColor(Color.parseColor("#000000"));
                         } else {
                             txt.setTextColor(Color.parseColor("#000000"));
                         }
-                    }else if (name.equals("true"))  {
+                    }else {
                         v.setBackgroundResource(R.drawable.true_circle);
-                        if (pos == 0 || pos == 7 || pos == 14 || pos == 21 || pos == 28 || pos == 35) {
-                            txt.setTextColor(Color.parseColor("#000000"));
-                        } else {
-                            txt.setTextColor(Color.parseColor("#000000"));
-                        }
                     }
+
+//                    if (date_collection_arr.get(pos).description.equals("true"))  {
+//                        Log.d("DATA_AVAIL_DATE",date_collection_arr.get(pos).date);
+//                        v.setBackgroundResource(R.drawable.true_circle);
+//                        if (pos == 0 || pos == 7 || pos == 14 || pos == 21 || pos == 28 || pos == 35) {
+//                            txt.setTextColor(Color.parseColor("#000000"));
+//                        } else {
+//                            txt.setTextColor(Color.parseColor("#000000"));
+//                        }
+//                    }
                 }
             }
         }

@@ -143,6 +143,10 @@ public class DashboardActivity extends AppCompatActivity implements PopupMenu.On
         if (menuItem.getItemId() == R.id.logoutitem){
             session.logoutUser(activity);
         }
+        if (menuItem.getItemId() == R.id.statisticsitem){
+            Intent intent = new Intent(activity,CalendarActivity.class);
+            startActivity(intent);
+        }
         return false;
     }
 }
