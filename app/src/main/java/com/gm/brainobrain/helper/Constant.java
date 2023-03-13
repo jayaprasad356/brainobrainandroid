@@ -34,6 +34,10 @@ public class Constant {
     public static final String DOUBLINGVIEWFRAGMENT = "DouublingViewFragment";
     public static final String FlashCardsQuestionVisualFragment ="FlashCardsQuestionVisualFragment";
     public static final String SECONDS = "Seconds";
+    public static final String MINIMUM = "minimum";
+    public static final String MAXIMUM = "maximum";
+    public static final String DIGITS = "digits";
+
     public static final String QUES_TYPE = "ques_type";
     public static final String AUTHORIZATION = "Authorization";
     public static final String TYPE = "type";

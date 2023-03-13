@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.developer.kalert.KAlertDialog;
 import com.gm.brainobrain.activities.PractisesActivity;
@@ -48,7 +51,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     private  boolean running;
     TextView tvTimer;
     Activity activity;
-    String seconds;
+    String seconds,digitsString;
     int question;
     LinearProgressIndicator quesProgress;
     TextView tvQuestion;
@@ -65,6 +68,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     int score = 0 ;
     String actanswer,name;
     CircularProgressIndicator cpbTime;
+    int minimum, maximum, digits;
 
     public FlashCardsQuestionVisualFragment() {
         // Required empty public constructor
@@ -100,6 +104,12 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
                 Log.d("BACKBUTTON", "Back button clicks");
             }
         };
+
+        minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
+        maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
+        digitsString = session.getData(Constant.DIGITS);
+        if (!digitsString.isEmpty())
+            digits = Integer.parseInt(session.getData(Constant.DIGITS));
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
@@ -445,6 +455,46 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         dialog.setContentView(R.layout.answer_custom_dialog);
         Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
         EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
+
+        etAnswer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String userInput = editable.toString();
+                if (!userInput.isEmpty()) {
+                    int number = Integer.parseInt(userInput);
+
+
+                    if (digitsString.isEmpty()) {
+                        if (number >= minimum && number <= maximum) {
+                            etAnswer.setError(null); // Clear any previous error
+                        } else {
+                            if (digitsString.isEmpty())
+                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    } else {
+                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+                            etAnswer.setError(null);
+                        } else {
+                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    }
+                }
+            }
+        });
+
+
         Log.e("check",name);
         if (name.equals("SD")) {
             etAnswer.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});

@@ -1,7 +1,7 @@
 package com.gm.brainobrain.adapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +21,11 @@ import com.gm.brainobrain.fragments.FlashCardsQuestionVisualFragment;
 import com.gm.brainobrain.helper.ApiConfig;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
+import com.gm.brainobrain.model.Preferences;
 import com.gm.brainobrain.model.Section;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.Slider;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +39,14 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     final ArrayList<Section> sections;
     String type = "visual";
     Session session;
+    String maxValue;
+    String minValue;
+    String maxDigits;
+    String timeSlider;
+    String timeSliderEndsAt;
+    String timeSliderStartAt;
+    String timeSliderIncrement;
+    Preferences preferences;
 
     public SectionAdapter(Activity activity, ArrayList<Section> sections) {
         this.activity = activity;
@@ -53,10 +61,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, @SuppressLint("RecyclerView") int position) {
         session = new Session(activity);
         final ItemHolder holder = (ItemHolder) holderParent;
         final Section section = sections.get(position);
+        preferences=sections.get(position).getPreferences();
 
         holder.title.setText(section.getName());
         holder.subTitle.setText(section.getType());
@@ -64,11 +73,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showbottomsheet(section.getId(),section.getType(),section.getName());
+                showbottomsheet(section.getId(), section.getType(), section.getName(),position);
             }
         });
     }
-    private void showbottomsheet(String id, String title, String name) {
+    private void showbottomsheet(String id, String title, String name, int position) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
         TextView tvStart = bottomSheetDialog.findViewById(R.id.tvStart);
@@ -80,6 +89,20 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ImageView imgMan = bottomSheetDialog.findViewById(R.id.imgMan);
         ImageView imgWoman = bottomSheetDialog.findViewById(R.id.imgWoman);
 
+        if(!(preferences.getTimeSliderEndsAt()==null &&preferences.getTimeSliderStartAt()==null && preferences.getTimeSliderIncrement()==null)) {
+            if(preferences.getTimeSliderStartAt().equals(preferences.getTimeSliderEndsAt())){
+                sliderTime.setEnabled(false);
+                tvSec.setText(preferences.getTimeSliderStartAt());
+            }else {
+                sliderTime.setValue(Float.parseFloat(preferences.getTimeSliderStartAt()));
+                sliderTime.setValueFrom(Float.parseFloat(preferences.getTimeSliderStartAt()));
+                sliderTime.setStepSize(Float.parseFloat(preferences.getTimeSliderIncrement()));
+                sliderTime.setValueTo(Float.parseFloat(preferences.getTimeSliderEndsAt()));
+            }
+            session.setData(Constant.MINIMUM, sections.get(position).getPreferences().getMinValue());
+            session.setData(Constant.MAXIMUM, sections.get(position).getPreferences().getMaxValue());
+            session.setData(Constant.DIGITS, sections.get(position).getPreferences().getMaxDigits());
+        }
 
         sliderTime.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
@@ -91,29 +114,30 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             public void onStopTrackingTouch(@NonNull Slider slider) {
 
                 float value = sliderTime.getValue();
-                int i =  (int) value;
-                tvSec.setText(  i+"");
-
-
-
+                int i = (int) value;
+                tvSec.setText(i + "");
 
 
             }
         });
         LinearLayout llOralvisible = bottomSheetDialog.findViewById(R.id.llOralvisible);
-        if (title.equals("Flash Cards")){
+        if (title.equals("Flash Cards")) {
             tvOralView.setVisibility(View.INVISIBLE);
         }
         tvStart.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
-            String sec = tvSec.getText().toString().trim();
-            session.setData(Constant.SECONDS,sec);
-            session.setData(Constant.TYPE,title);
-            session.setData(Constant.SECTION_ID,id);
+            int sec = Integer.parseInt(tvSec.getText().toString().trim());
+            int extraBuffer=2;
+            int seconds= sec+extraBuffer;
+            session.setData(Constant.SECONDS, String.valueOf(seconds));
+
+
+            session.setData(Constant.TYPE, title);
+            session.setData(Constant.SECTION_ID, id);
             session.setData(Constant.QUESTION_NAME, name);
             Bundle bundle = new Bundle();
             bundle.putInt("QUESTION", 1);
-            getSections(bundle,title,type);
+            getSections(bundle, title, type);
 
 
         });
@@ -164,10 +188,9 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
-    private void getSections(Bundle bundle, String title, String type)
-    {
+    private void getSections(Bundle bundle, String title, String type) {
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
+        params.put(Constant.TOKEN, session.getData(Constant.TOKEN));
         ApiConfig.RequestToVolley((result, response) -> {
 
             if (result) {
@@ -176,37 +199,31 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         session.setData(Constant.QUESTION_ARRAY,response);
-
-                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                        session.setData(Constant.NUMBER_OF_QUESTIONS,jsonArray.length() + "");
-                        Log.d("SECTION_RES",jsonArray.length() + "");
                         if (type.equals("oral")){
-                            session.setData(Constant.QUES_TYPE,Constant.ORAL_NUMBER);
                             AddSubNumTypeOralFragment addSubNumTypeOralFragment = new AddSubNumTypeOralFragment();
                             addSubNumTypeOralFragment.setArguments(bundle);
-                            PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
-                        }
-                        else {
-                            if (title.equals("Flash Cards")){
-                                session.setData(Constant.QUES_TYPE,Constant.FLASH_CARD);
+                            PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
+                        } else {
+                            if (title.equals("Flash Cards")) {
+                                session.setData(Constant.QUES_TYPE, Constant.FLASH_CARD);
                                 FlashCardsQuestionVisualFragment flashCardsQuestionVisualFragment = new FlashCardsQuestionVisualFragment();
                                 flashCardsQuestionVisualFragment.setArguments(bundle);
                                 PractisesActivity.fm.beginTransaction().replace(R.id.container, flashCardsQuestionVisualFragment, Constant.FLASHCARDQUESTIONFRAGMENT).commit();
 
-                            }else {
-                                session.setData(Constant.QUES_TYPE,Constant.NUMBER);
+                            } else {
+                                session.setData(Constant.QUES_TYPE, Constant.NUMBER);
                                 AddSubNumTypeVisualFragment addSubNumTypeVisualFragment = new AddSubNumTypeVisualFragment();
                                 addSubNumTypeVisualFragment.setArguments(bundle);
-                                PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeVisualFragment,Constant.ADDSUBNUMTYPEVISUALFRAGMENT).commit();
+
+                                PractisesActivity.fm.beginTransaction().replace(R.id.container, addSubNumTypeVisualFragment, Constant.ADDSUBNUMTYPEVISUALFRAGMENT).commit();
 
                             }
 
                         }
 
 
-                    }
-                    else {
-                        Toast.makeText(activity, ""+String.valueOf(jsonObject.getString(Constant.MESSAGE)), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(activity, "" + String.valueOf(jsonObject.getString(Constant.MESSAGE)), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -214,7 +231,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             }
-        }, activity, Constant.PRACTICE_SECTION_QUESTION_URL(session.getData(Constant.LEVEL_ID),session.getData(Constant.SECTION_ID)), params, true,0);
+        }, activity, Constant.PRACTICE_SECTION_QUESTION_URL(session.getData(Constant.LEVEL_ID),session.getData(Constant.SECTION_ID)), params, true, 0);
     }
 
     @Override
@@ -224,7 +241,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     static class ItemHolder extends RecyclerView.ViewHolder {
 
-        final TextView title,subTitle;
+        final TextView title, subTitle;
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);

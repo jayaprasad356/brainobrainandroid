@@ -1,16 +1,19 @@
 package com.gm.brainobrain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Section {
-    String id,name,type;
-    public Section(){
+    @SerializedName("id")
+    private String id;
 
-    }
+    @SerializedName("name")
+    private String name;
 
-    public Section(String id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
+    @SerializedName("type")
+    private String type;
+
+    @SerializedName("preferences")
+    private Preferences preferences;
 
     public String getId() {
         return id;
@@ -35,4 +38,13 @@ public class Section {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Preferences getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(Preferences preferences) {
+        this.preferences = preferences;
+    }
 }
+

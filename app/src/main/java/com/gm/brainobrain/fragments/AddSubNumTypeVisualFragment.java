@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,33 +50,36 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     RecyclerView recyclerView;
     Activity activity;
     TextView tvTimer;
-    String Seconds;
+    String Seconds, digitsString;
     QuestionAdapter questionAdapter;
     String seconds;
+    int minimum, maximum, digits;
     int question;
     LinearProgressIndicator quesProgress;
     TextView tvQuestion;
-    private  boolean running;
+    private boolean running;
     private int s = 0;
     Session session;
     RelativeLayout rl;
-    String Level,Title,Number;
+    String Level, Title, Number;
     EditText etAnswer;
     Button btnSubmit;
     TextView tvQuestionContent;
     Boolean nextquestion = false;
-    int score = 0 ;
+    int score = 0;
     int noOfSeconds;
     String actanswer;
     CircularProgressIndicator cpbTime;
+
     public AddSubNumTypeVisualFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_add_sub_num_type_visual, container, false);
+        View root = inflater.inflate(R.layout.fragment_add_sub_num_type_visual, container, false);
         recyclerView = root.findViewById(R.id.recyclerView);
         activity = getActivity();
         rl = root.findViewById(R.id.rl);
@@ -89,9 +94,9 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         Title = session.getData(Constant.TYPE);
         tvTimer = root.findViewById(R.id.tvTimer);
         question = getArguments().getInt("QUESTION");
-        session.setData(Constant.SCORE,"0");
-        session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
-        tvQuestion.setText("Question "+question+" of 10");
+        session.setData(Constant.SCORE, "0");
+        session.setData(Constant.FRAG_LOCATE, Constant.EVENT_FRAG);
+        tvQuestion.setText("Question " + question + " of 10");
         ((PractisesActivity) requireActivity()).startTimer();
         seconds = "20";
         noOfSeconds = Integer.parseInt(seconds) * 1000;
@@ -102,10 +107,58 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                 Log.d("BACKBUTTON", "Back button clicks");
             }
         };
+        minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
+        maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
+        digitsString = session.getData(Constant.DIGITS);
+        if (!digitsString.isEmpty())
+            digits = Integer.parseInt(session.getData(Constant.DIGITS));
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
+        etAnswer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String userInput = editable.toString();
+                if (!userInput.isEmpty()) {
+                    int number = Integer.parseInt(userInput);
+
+
+                    if (digitsString.isEmpty()) {
+                        if (number >= minimum && number <= maximum) {
+                            etAnswer.setError(null); // Clear any previous error
+                        } else {
+                            if (digitsString.isEmpty())
+                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    } else {
+                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+                            etAnswer.setError(null);
+                        } else {
+                                Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    }
+                }
+            }
+        });
+
+        requireActivity().
+
+                getOnBackPressedDispatcher().
+
+                addCallback(getViewLifecycleOwner(), callback);
         PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
-        PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
+        PractisesActivity.tilte.setText(Html.fromHtml("Practises>" + Level + "><b>" + Title + "</b>"));
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 1000;
         //GridLayoutManager gridLayoutManager = new GridLayoutManager(activity,4);
@@ -113,6 +166,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         //recyclerView.setLayoutManager(new GridLayoutManager(activity, 5, LinearLayoutManager.VERTICAL, false));
 
         recyclerView.setLayoutManager(gridLayoutManager);
+
         numberList();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,23 +176,24 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         });
 
         tvTimer.setText(seconds);
+
         setTvCountdoun();
         return root;
     }
 
 
-    private void nextQuestion()
-    {
+    private void nextQuestion() {
         ((PractisesActivity) requireActivity()).cancelTimer();
         numberList();
-        tvQuestion.setText("Question "+question+" of 10");
+        tvQuestion.setText("Question " + question + " of 10");
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 1000;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + "");
-                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
+                cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
             }
+
             public void onFinish() {
                 //tvTimer.setText("Time out");
                 next();
@@ -146,27 +201,26 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         }.start();
     }
 
-    private void next()
-    {
-       // ((PractisesActivity) requireActivity()).cancelTimer();
-        if(etAnswer.getText().toString().trim().isEmpty()) {
+    private void next() {
+        // ((PractisesActivity) requireActivity()).cancelTimer();
+        if (etAnswer.getText().toString().trim().isEmpty()) {
             ShowAlertDialog();
-        }else if(etAnswer.getText().toString().trim().equals(".")) {
+        } else if (etAnswer.getText().toString().trim().equals(".")) {
             ShowAlertDialog();
-        }else{
-            if (actanswer.equals(etAnswer.getText().toString().trim())){
+        } else {
+            if (actanswer.equals(etAnswer.getText().toString().trim())) {
                 score = score + 1;
-                session.setData(Constant.SCORE,score +"");
+                session.setData(Constant.SCORE, score + "");
             }
-            if (question == 10){
+            if (question == 10) {
                 ((PractisesActivity) requireActivity()).resetTimer();
                 PractisesActivity.imgHome.setVisibility(View.VISIBLE);
                 Bundle bundle = new Bundle();
                 bundle.putString("SECONDS", seconds);
                 ResultFragment resultFragment = new ResultFragment();
                 resultFragment.setArguments(bundle);
-                PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
-            }else {
+                PractisesActivity.fm.beginTransaction().replace(R.id.container, resultFragment, Constant.RESULTFRAGMENT).commit();
+            } else {
                 question = question + 1;
                 etAnswer.getText().clear();
                 nextQuestion();
@@ -188,9 +242,8 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         String Question = "";
         try {
             JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
-            Log.d("ADDSUB_RES",session.getData(Constant.QUESTION_ARRAY));
-            if (jsonObject.getBoolean(Constant.SUCCESS))
-            {
+            Log.d("ADDSUB_RES", session.getData(Constant.QUESTION_ARRAY));
+            if (jsonObject.getBoolean(Constant.SUCCESS)) {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                 JSONArray jsonArray1 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.QUESTION);
                 JSONArray jsonArray2 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.ANSWERS);
@@ -237,12 +290,11 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
     private void setTvCountdoun() {
         Number = numberList();
-        PractisesActivity.cTimer = new CountDownTimer(noOfSeconds,1000)
-        {
+        PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + "");
-                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
+                cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
             }
 
             @Override
