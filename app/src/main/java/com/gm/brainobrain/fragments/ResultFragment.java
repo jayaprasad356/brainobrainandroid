@@ -29,7 +29,7 @@ public class ResultFragment extends Fragment {
     Button btnTryagain;
     Session session;
     Activity activity;
-    TextView tvScore,tvFeedback;
+    TextView tvScore,tvFeedback,tvTimetaken;
 
 
     public ResultFragment() {
@@ -46,6 +46,8 @@ public class ResultFragment extends Fragment {
         btnTryagain = root.findViewById(R.id.btnTryagain);
         tvScore = root.findViewById(R.id.tvScore);
         tvFeedback = root.findViewById(R.id.tvFeedback);
+        tvTimetaken=root.findViewById(R.id.tvTimetaken);
+        tvTimetaken.setText("Time Taken : "+session.getData(Constant.TIME_TAKEN));
         tvScore.setText(session.getData(Constant.SCORE) +" \n out of 10");
         tvFeedback.setText(getFeedback(session.getData(Constant.SCORE)));
 

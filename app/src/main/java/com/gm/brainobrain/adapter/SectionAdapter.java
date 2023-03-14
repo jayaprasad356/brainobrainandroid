@@ -89,15 +89,15 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ImageView imgMan = bottomSheetDialog.findViewById(R.id.imgMan);
         ImageView imgWoman = bottomSheetDialog.findViewById(R.id.imgWoman);
 
-        if(!(preferences.getTimeSliderEndsAt()==null &&preferences.getTimeSliderStartAt()==null && preferences.getTimeSliderIncrement()==null)) {
-            if(preferences.getTimeSliderStartAt().equals(preferences.getTimeSliderEndsAt())){
+        if(!(sections.get(position).getPreferences().getTimeSliderEndsAt()==null &&sections.get(position).getPreferences().getTimeSliderStartAt()==null && sections.get(position).getPreferences().getTimeSliderIncrement()==null)) {
+            if(sections.get(position).getPreferences().getTimeSliderStartAt().equals(sections.get(position).getPreferences().getTimeSliderEndsAt())){
                 sliderTime.setEnabled(false);
-                tvSec.setText(preferences.getTimeSliderStartAt());
+                tvSec.setText(sections.get(position).getPreferences().getTimeSliderStartAt());
             }else {
-                sliderTime.setValue(Float.parseFloat(preferences.getTimeSliderStartAt()));
-                sliderTime.setValueFrom(Float.parseFloat(preferences.getTimeSliderStartAt()));
-                sliderTime.setStepSize(Float.parseFloat(preferences.getTimeSliderIncrement()));
-                sliderTime.setValueTo(Float.parseFloat(preferences.getTimeSliderEndsAt()));
+                sliderTime.setValue(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderStartAt()));
+                sliderTime.setValueFrom(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderStartAt()));
+                sliderTime.setStepSize(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderIncrement()));
+                sliderTime.setValueTo(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderEndsAt()));
             }
             session.setData(Constant.MINIMUM, sections.get(position).getPreferences().getMinValue());
             session.setData(Constant.MAXIMUM, sections.get(position).getPreferences().getMaxValue());

@@ -47,28 +47,29 @@ import java.util.Objects;
 
 
 public class FlashCardsQuestionVisualFragment extends Fragment {
-    private  int s = 0;
-    private  boolean running;
+    private int s = 0;
+    private boolean running;
     TextView tvTimer;
     Activity activity;
-    String seconds,digitsString;
+    String seconds, digitsString;
     int question;
     LinearProgressIndicator quesProgress;
     TextView tvQuestion;
     Session session;
     EditText etAnswer;
-    ImageView c1bdice1,c1sdice1,c1sdice2,c1sdice3,c1sdice4;
-    ImageView c2bdice1,c2sdice1,c2sdice2,c2sdice3,c2sdice4;
-    ImageView c3bdice1,c3sdice1,c3sdice2,c3sdice3,c3sdice4;
-    ImageView c4bdice1,c4sdice1,c4sdice2,c4sdice3,c4sdice4;
-    ImageView c5bdice1,c5sdice1,c5sdice2,c5sdice3,c5sdice4;
-    LinearLayout lcolumn1,lcolumn2,lcolumn3,lcolumn4,lcolumn5;
-    String first,second,third,fourth,fifth;
-    String Level,Title;
-    int score = 0 ;
-    String actanswer,name;
+    ImageView c1bdice1, c1sdice1, c1sdice2, c1sdice3, c1sdice4;
+    ImageView c2bdice1, c2sdice1, c2sdice2, c2sdice3, c2sdice4;
+    ImageView c3bdice1, c3sdice1, c3sdice2, c3sdice3, c3sdice4;
+    ImageView c4bdice1, c4sdice1, c4sdice2, c4sdice3, c4sdice4;
+    ImageView c5bdice1, c5sdice1, c5sdice2, c5sdice3, c5sdice4;
+    LinearLayout lcolumn1, lcolumn2, lcolumn3, lcolumn4, lcolumn5;
+    String first, second, third, fourth, fifth;
+    String Level, Title;
+    int score = 0;
+    String actanswer, name;
     CircularProgressIndicator cpbTime;
     int minimum, maximum, digits;
+    int answer;
 
     public FlashCardsQuestionVisualFragment() {
         // Required empty public constructor
@@ -79,7 +80,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_flash_cards_question_visual, container, false);
+        View root = inflater.inflate(R.layout.fragment_flash_cards_question_visual, container, false);
         activity = getActivity();
         session = new Session(activity);
 
@@ -88,15 +89,15 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         tvQuestion = root.findViewById(R.id.tvQuestion);
         cpbTime = root.findViewById(R.id.cpbTime);
         init(root);
-        session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
+        session.setData(Constant.FRAG_LOCATE, Constant.EVENT_FRAG);
         Level = session.getData(Constant.LEVEL);
         Title = session.getData(Constant.TYPE);
         seconds = session.getData(Constant.SECONDS);
-        session.setData(Constant.SCORE,"0");
+        session.setData(Constant.SCORE, "0");
         question = getArguments().getInt("QUESTION");
         name = session.getData(Constant.QUESTION_NAME);
         tvTimer.setText(seconds);
-        tvQuestion.setText("Question "+question+" of 10");
+        tvQuestion.setText("Question " + question + " of 10");
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
@@ -116,14 +117,15 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         PractisesActivity.imgHome.setVisibility(View.GONE);
         PractisesActivity.tvTimer.setVisibility(View.VISIBLE);
         ((PractisesActivity) requireActivity()).startTimer();
-        PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
+        PractisesActivity.tilte.setText(Html.fromHtml("Practises>" + Level + "><b>" + Title + "</b>"));
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + "");
-                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
+                cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
             }
+
             public void onFinish() {
                 //tvTimer.setText("Time out");
                 showDialog();
@@ -136,16 +138,13 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     }
 
 
-
-
-    private void setQuestion()
-    {
+    private void setQuestion() {
         try {
             JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
-            if (jsonObject.getBoolean(Constant.SUCCESS)){
+            if (jsonObject.getBoolean(Constant.SUCCESS)) {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                JSONArray jsonArray1 = jsonArray.getJSONObject(question-1).getJSONArray(Constant.QUESTION);
-                JSONArray jsonArray2 = jsonArray.getJSONObject(question-1).getJSONArray(Constant.ANSWERS);
+                JSONArray jsonArray1 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.QUESTION);
+                JSONArray jsonArray2 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.ANSWERS);
                 String question = jsonArray1.get(0).toString();
                 actanswer = jsonArray2.get(0).toString();
                 setImage(question);
@@ -159,50 +158,48 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
 
     }
 
-    private void setImage(String answer)
-    {
+    private void setImage(String answer) {
         inVisibleAll();
 
 
-
-        if (answer.length() == 1){
-            first=answer.substring(0,1);
+        if (answer.length() == 1) {
+            first = answer.substring(0, 1);
             column1(Integer.parseInt(first));
 
         }
-        if (answer.length() == 2){
-            first=answer.substring(0,1);
-            second=answer.substring(1,2);
+        if (answer.length() == 2) {
+            first = answer.substring(0, 1);
+            second = answer.substring(1, 2);
             column1(Integer.parseInt(first));
             column2(Integer.parseInt(second));
 
         }
-        if (answer.length() == 3){
-            first=answer.substring(0,1);
-            second=answer.substring(1,2);
-            third=answer.substring(2,3);
+        if (answer.length() == 3) {
+            first = answer.substring(0, 1);
+            second = answer.substring(1, 2);
+            third = answer.substring(2, 3);
             column1(Integer.parseInt(first));
             column2(Integer.parseInt(second));
             column3(Integer.parseInt(third));
 
         }
-        if (answer.length() == 4){
-            first=answer.substring(0,1);
-            second=answer.substring(1,2);
-            third=answer.substring(2,3);
-            fourth=answer.substring(3,4);
+        if (answer.length() == 4) {
+            first = answer.substring(0, 1);
+            second = answer.substring(1, 2);
+            third = answer.substring(2, 3);
+            fourth = answer.substring(3, 4);
             column1(Integer.parseInt(first));
             column2(Integer.parseInt(second));
             column3(Integer.parseInt(third));
             column4(Integer.parseInt(fourth));
 
         }
-        if (answer.length() == 5){
-            first=answer.substring(0,1);
-            second=answer.substring(1,2);
-            third=answer.substring(2,3);
-            fourth=answer.substring(3,4);
-            fifth=answer.substring(4,5);
+        if (answer.length() == 5) {
+            first = answer.substring(0, 1);
+            second = answer.substring(1, 2);
+            third = answer.substring(2, 3);
+            fourth = answer.substring(3, 4);
+            fifth = answer.substring(4, 5);
             column1(Integer.parseInt(first));
             column2(Integer.parseInt(second));
             column3(Integer.parseInt(third));
@@ -212,132 +209,133 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         }
     }
 
-    private void column1(int i)
-    {
+    private void column1(int i) {
         lcolumn1.setVisibility(View.VISIBLE);
-        if (isBetween(i,5,10) || isBetween(i,0,5)){
+        if (isBetween(i, 5, 10) || isBetween(i, 0, 5)) {
             c1sdice1.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,6,10) || isBetween(i,1,5)){
+        if (isBetween(i, 6, 10) || isBetween(i, 1, 5)) {
             c1sdice2.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,7,10) || isBetween(i,2,5)){
+        if (isBetween(i, 7, 10) || isBetween(i, 2, 5)) {
             c1sdice3.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,8,10) || isBetween(i,3,5)){
+        if (isBetween(i, 8, 10) || isBetween(i, 3, 5)) {
             c1sdice4.setVisibility(View.VISIBLE);
 
         }
-        if ( i >= 5){
+        if (i >= 5) {
             c1bdice1.setVisibility(View.VISIBLE);
         }
 
 
     }
-    private void column2(int i)
-    {
+
+    private void column2(int i) {
         lcolumn2.setVisibility(View.VISIBLE);
-        if (isBetween(i,5,10) || isBetween(i,0,5)){
+        if (isBetween(i, 5, 10) || isBetween(i, 0, 5)) {
             c2sdice1.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,6,10) || isBetween(i,1,5)){
+        if (isBetween(i, 6, 10) || isBetween(i, 1, 5)) {
             c2sdice2.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,7,10) || isBetween(i,2,5)){
+        if (isBetween(i, 7, 10) || isBetween(i, 2, 5)) {
             c2sdice3.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,8,10) || isBetween(i,3,5)){
+        if (isBetween(i, 8, 10) || isBetween(i, 3, 5)) {
             c2sdice4.setVisibility(View.VISIBLE);
 
         }
-        if ( i >= 5){
+        if (i >= 5) {
             c2bdice1.setVisibility(View.VISIBLE);
         }
 
 
     }
-    private void column3(int i)
-    {
+
+    private void column3(int i) {
         lcolumn3.setVisibility(View.VISIBLE);
-        if (isBetween(i,5,10) || isBetween(i,0,5)){
+        if (isBetween(i, 5, 10) || isBetween(i, 0, 5)) {
             c3sdice1.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,6,10) || isBetween(i,1,5)){
+        if (isBetween(i, 6, 10) || isBetween(i, 1, 5)) {
             c3sdice2.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,7,10) || isBetween(i,2,5)){
+        if (isBetween(i, 7, 10) || isBetween(i, 2, 5)) {
             c3sdice3.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,8,10) || isBetween(i,3,5)){
+        if (isBetween(i, 8, 10) || isBetween(i, 3, 5)) {
             c3sdice4.setVisibility(View.VISIBLE);
 
         }
-        if ( i >= 5){
+        if (i >= 5) {
             c3bdice1.setVisibility(View.VISIBLE);
         }
 
 
     }
-    private void column4(int i)
-    {
+
+    private void column4(int i) {
         lcolumn4.setVisibility(View.VISIBLE);
-        if (isBetween(i,5,10) || isBetween(i,0,5)){
+        if (isBetween(i, 5, 10) || isBetween(i, 0, 5)) {
             c4sdice1.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,6,10) || isBetween(i,1,5)){
+        if (isBetween(i, 6, 10) || isBetween(i, 1, 5)) {
             c4sdice2.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,7,10) || isBetween(i,2,5)){
+        if (isBetween(i, 7, 10) || isBetween(i, 2, 5)) {
             c4sdice3.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,8,10) || isBetween(i,3,5)){
+        if (isBetween(i, 8, 10) || isBetween(i, 3, 5)) {
             c4sdice4.setVisibility(View.VISIBLE);
 
         }
-        if ( i >= 5){
+        if (i >= 5) {
             c4bdice1.setVisibility(View.VISIBLE);
         }
 
 
     }
+
     private void column5(int i) {
         lcolumn5.setVisibility(View.VISIBLE);
-        if (isBetween(i,5,10) || isBetween(i,0,5)){
+        if (isBetween(i, 5, 10) || isBetween(i, 0, 5)) {
             c5sdice1.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,6,10) || isBetween(i,1,5)){
+        if (isBetween(i, 6, 10) || isBetween(i, 1, 5)) {
             c5sdice2.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,7,10) || isBetween(i,2,5)){
+        if (isBetween(i, 7, 10) || isBetween(i, 2, 5)) {
             c5sdice3.setVisibility(View.VISIBLE);
 
         }
-        if (isBetween(i,8,10) || isBetween(i,3,5)){
+        if (isBetween(i, 8, 10) || isBetween(i, 3, 5)) {
             c5sdice4.setVisibility(View.VISIBLE);
         }
-        if ( i >= 5){
+        if (i >= 5) {
             c5bdice1.setVisibility(View.VISIBLE);
         }
 
     }
-    public static boolean isBetween(int value, int min, int max)
-    {
-        return((value > min) && (value < max));
+
+    public static boolean isBetween(int value, int min, int max) {
+        return ((value > min) && (value < max));
     }
+
     private void init(View root) {
         c1bdice1 = root.findViewById(R.id.c1bdice1);
         c1sdice1 = root.findViewById(R.id.c1sdice1);
@@ -371,6 +369,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         lcolumn5 = root.findViewById(R.id.lcolumn5);
         inVisibleAll();
     }
+
     private void inVisibleAll() {
         c1bdice1.setVisibility(View.INVISIBLE);
         c1sdice1.setVisibility(View.GONE);
@@ -387,7 +386,8 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         c3sdice2.setVisibility(View.GONE);
         c3sdice3.setVisibility(View.GONE);
         c3sdice4.setVisibility(View.GONE);
-        c4bdice1.setVisibility(View.INVISIBLE);;
+        c4bdice1.setVisibility(View.INVISIBLE);
+        ;
         c4sdice1.setVisibility(View.GONE);
         c4sdice2.setVisibility(View.GONE);
         c4sdice3.setVisibility(View.GONE);
@@ -404,36 +404,35 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         lcolumn5.setVisibility(View.GONE);
     }
 
-    private void next()
-    {
+    private void next() {
 
         ((PractisesActivity) requireActivity()).cancelTimer();
-        if (question == 10){
+        if (question == 10) {
             ((PractisesActivity) requireActivity()).resetTimer();
             PractisesActivity.imgHome.setVisibility(View.VISIBLE);
             Bundle bundle = new Bundle();
             bundle.putString("SECONDS", seconds);
             ResultFragment resultFragment = new ResultFragment();
             resultFragment.setArguments(bundle);
-            PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+            PractisesActivity.fm.beginTransaction().replace(R.id.container, resultFragment, Constant.RESULTFRAGMENT).commit();
 
-        }else {
+        } else {
             question = question + 1;
             nextQuestion();
         }
     }
-    private void nextQuestion()
-    {
+
+    private void nextQuestion() {
         setQuestion();
         tvTimer.setText(seconds);
-        tvQuestion.setText("Question "+question+" of 10");
+        tvQuestion.setText("Question " + question + " of 10");
         quesProgress.setProgress(question);
         int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(millisUntilFinished / 1000 +"");
-                cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
+                tvTimer.setText(millisUntilFinished / 1000 + "");
+                cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
             }
 
             public void onFinish() {
@@ -446,9 +445,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     }
 
 
-
-    private void showDialog()
-    {
+    private void showDialog() {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -456,64 +453,68 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
         EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
 
-        etAnswer.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
+//        etAnswer.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                String userInput = editable.toString();
+//                if (!userInput.isEmpty() && !userInput.equals(".")) {
+//                    int number = Integer.parseInt(userInput);
+//
+//
+//                    if (digitsString.isEmpty()) {
+//                        if (number >= minimum && number <= maximum) {
+//                            etAnswer.setError(null); // Clear any previous error
+//                        } else {
+//                            if (digitsString.isEmpty())
+//                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    } else {
+//                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+//                            etAnswer.setError(null);
+//                        } else {
+//                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String userInput = editable.toString();
-                if (!userInput.isEmpty()) {
-                    int number = Integer.parseInt(userInput);
-
-
-                    if (digitsString.isEmpty()) {
-                        if (number >= minimum && number <= maximum) {
-                            etAnswer.setError(null); // Clear any previous error
-                        } else {
-                            if (digitsString.isEmpty())
-                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    } else {
-                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
-                            etAnswer.setError(null);
-                        } else {
-                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    }
-                }
-            }
-        });
-
-
-        Log.e("check",name);
+        Log.e("check", name);
         if (name.equals("SD")) {
-            etAnswer.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
-        }else if(name.equals("DD")){
-            etAnswer.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+            etAnswer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
+        } else if (name.equals("DD")) {
+            etAnswer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         }
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etAnswer.getText().toString().trim().isEmpty()) {
+                answer = Integer.parseInt(etAnswer.getText().toString());
+
+                if (etAnswer.getText().toString().trim().isEmpty()) {
                     ShowAlertDialog();
-                }else if(etAnswer.getText().toString().trim().equals(".")) {
+                } else if (etAnswer.getText().toString().trim().equals(".")) {
                     ShowAlertDialog();
-                }else {
-                    if(actanswer.equals(etAnswer.getText().toString().trim())){
+                } else if (!(answer >= minimum) || !(answer <= maximum) || !(etAnswer.getText().length() <= digits)) {
+                    Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (actanswer.equals(etAnswer.getText().toString().trim())) {
                         score = score + 1;
-                        session.setData(Constant.SCORE,score +"");
+                        session.setData(Constant.SCORE, score + "");
                     }
-                    if(!(etAnswer.getText().toString().isEmpty())) {
+                    if (!(etAnswer.getText().toString().isEmpty())) {
                         dialog.dismiss();
                         next();
                     }

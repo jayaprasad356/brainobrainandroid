@@ -105,7 +105,7 @@
                     android:text=""/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border7"
@@ -152,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:field="@+id/etAnswer"
-                    app:keySpecial="."
+                    app:keySpecial=""
                     app:keyTextColor="@color/primaryColor" />
 
 

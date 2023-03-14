@@ -1,30 +1,22 @@
 package com.gm.brainobrain.fragments;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +27,6 @@ import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.adapter.QuestionAdapter;
 import com.gm.brainobrain.helper.Constant;
 import com.gm.brainobrain.helper.Session;
-import com.gm.brainobrain.model.Number;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
@@ -53,7 +44,10 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     String Seconds, digitsString;
     QuestionAdapter questionAdapter;
     String seconds;
-    int minimum, maximum, digits;
+    int minimum;
+    int maximum;
+    int digits;
+    int answer;
     int question;
     LinearProgressIndicator quesProgress;
     TextView tvQuestion;
@@ -114,43 +108,43 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             digits = Integer.parseInt(session.getData(Constant.DIGITS));
 
 
-        etAnswer.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String userInput = editable.toString();
-                if (!userInput.isEmpty()) {
-                    int number = Integer.parseInt(userInput);
-
-
-                    if (digitsString.isEmpty()) {
-                        if (number >= minimum && number <= maximum) {
-                            etAnswer.setError(null); // Clear any previous error
-                        } else {
-                            if (digitsString.isEmpty())
-                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    } else {
-                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
-                            etAnswer.setError(null);
-                        } else {
-                                Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    }
-                }
-            }
-        });
+//        etAnswer.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                String userInput = editable.toString();
+//                if (!userInput.isEmpty() && !userInput.equals(".")) {
+//                    int number = Integer.parseInt(userInput);
+//
+//
+//                    if (digitsString.isEmpty()) {
+//                        if (number >= minimum && number <= maximum) {
+//                            etAnswer.setError(null); // Clear any previous error
+//                        } else {
+//                            if (digitsString.isEmpty())
+//                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    } else {
+//                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+//                            etAnswer.setError(null);
+//                        } else {
+//                                Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
         requireActivity().
 
@@ -202,11 +196,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     }
 
     private void next() {
+        answer= Integer.parseInt(etAnswer.getText().toString());
         // ((PractisesActivity) requireActivity()).cancelTimer();
         if (etAnswer.getText().toString().trim().isEmpty()) {
             ShowAlertDialog();
         } else if (etAnswer.getText().toString().trim().equals(".")) {
             ShowAlertDialog();
+        } else if (!(answer>= minimum) || !(answer<= maximum) || !(etAnswer.getText().length() <= digits)) {
+            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
         } else {
             if (actanswer.equals(etAnswer.getText().toString().trim())) {
                 score = score + 1;
