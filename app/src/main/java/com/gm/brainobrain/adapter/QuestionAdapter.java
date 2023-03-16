@@ -34,7 +34,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, int position) {
         final ItemHolder holder = (ItemHolder) holderParent;
-        final String question = questions.get(position);
+        final String question = questions.get(position).trim();
 
         holder.tvNumber.setText(question);
 

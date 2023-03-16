@@ -8,11 +8,12 @@
     <TextView
         android:fontFamily="@font/brainx"
         android:id="@+id/tvNumber"
-        android:layout_width="@dimen/_65sdp"
+        android:layout_width="@dimen/_50sdp"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="@dimen/_5sdp"
+        android:gravity="end"
+        android:paddingVertical="@dimen/_5sdp"
         android:text="-400"
+        android:paddingHorizontal="0dp"
         android:textColor="@color/black"
         android:textSize="@dimen/_20sdp"
         android:textStyle="bold" />
