@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,43 +109,43 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             digits = Integer.parseInt(session.getData(Constant.DIGITS));
 
 
-//        etAnswer.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                // Do nothing
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                // Do nothing
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                String userInput = editable.toString();
-//                if (!userInput.isEmpty() && !userInput.equals(".")) {
-//                    int number = Integer.parseInt(userInput);
-//
-//
-//                    if (digitsString.isEmpty()) {
-//                        if (number >= minimum && number <= maximum) {
-//                            etAnswer.setError(null); // Clear any previous error
-//                        } else {
-//                            if (digitsString.isEmpty())
-//                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-//                            etAnswer.setText("");
-//                        }
-//                    } else {
-//                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
-//                            etAnswer.setError(null);
-//                        } else {
-//                                Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-//                            etAnswer.setText("");
-//                        }
-//                    }
-//                }
-//            }
-//        });
+        etAnswer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String userInput = editable.toString();
+                if (!userInput.isEmpty() && !userInput.equals(".")) {
+                    int number = Integer.parseInt(userInput);
+
+
+                    if (digitsString.isEmpty()) {
+                        if (number >= minimum && number <= maximum) {
+                            etAnswer.setError(null); // Clear any previous error
+                        } else {
+                            if (digitsString.isEmpty())
+                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    } else {
+                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+                            etAnswer.setError(null);
+                        } else {
+                                Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+                            etAnswer.setText("");
+                        }
+                    }
+                }
+            }
+        });
 
         requireActivity().
 
@@ -196,20 +197,27 @@ public class AddSubNumTypeVisualFragment extends Fragment {
     }
 
     private void next() {
-        answer= Integer.parseInt(etAnswer.getText().toString());
-        // ((PractisesActivity) requireActivity()).cancelTimer();
-        if (etAnswer.getText().toString().trim().isEmpty()) {
+        String answerString = etAnswer.getText().toString().trim();
+        if (answerString.isEmpty()) {
             ShowAlertDialog();
-        } else if (etAnswer.getText().toString().trim().equals(".")) {
+            return;
+        }
+        try {
+            answer = Integer.parseInt(answerString);
+        } catch (NumberFormatException e) {
             ShowAlertDialog();
-        } else if (!(answer>= minimum) || !(answer<= maximum) || !(etAnswer.getText().length() <= digits)) {
-            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-        } else {
-            if (actanswer.equals(etAnswer.getText().toString().trim())) {
-                score = score + 1;
-                session.setData(Constant.SCORE, score + "");
-            }
-            if (question == 10) {
+            return;
+        }
+        if (answerString.equals(".")) {
+            ShowAlertDialog();
+            return;
+        }
+        if (actanswer.equals(answerString)) {
+            score++;
+            session.setData(Constant.SCORE, score + "");
+        }
+        if (question == 10) {
+            if (isAdded()) {
                 ((PractisesActivity) requireActivity()).resetTimer();
                 PractisesActivity.imgHome.setVisibility(View.VISIBLE);
                 Bundle bundle = new Bundle();
@@ -217,13 +225,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                 ResultFragment resultFragment = new ResultFragment();
                 resultFragment.setArguments(bundle);
                 PractisesActivity.fm.beginTransaction().replace(R.id.container, resultFragment, Constant.RESULTFRAGMENT).commit();
-            } else {
-                question = question + 1;
-                etAnswer.getText().clear();
-                nextQuestion();
             }
+        } else {
+            question++;
+            etAnswer.getText().clear();
+            nextQuestion();
         }
     }
+
 
     private void ShowAlertDialog() {
         new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)

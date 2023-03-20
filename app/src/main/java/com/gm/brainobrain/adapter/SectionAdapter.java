@@ -98,6 +98,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 sliderTime.setValueFrom(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderStartAt()));
                 sliderTime.setStepSize(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderIncrement()));
                 sliderTime.setValueTo(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderEndsAt()));
+                tvSec.setText(sections.get(position).getPreferences().getTimeSliderStartAt());
             }
             session.setData(Constant.MINIMUM, sections.get(position).getPreferences().getMinValue());
             session.setData(Constant.MAXIMUM, sections.get(position).getPreferences().getMaxValue());
@@ -115,7 +116,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 float value = sliderTime.getValue();
                 int i = (int) value;
-                tvSec.setText(i + "");
+                tvSec.setText(value + "");
 
 
             }
