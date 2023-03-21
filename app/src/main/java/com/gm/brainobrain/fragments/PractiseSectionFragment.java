@@ -39,21 +39,24 @@ public class PractiseSectionFragment extends Fragment {
     RecyclerView recyclerView;
     Activity activity;
     SectionAdapter sectionAdapter;
-    String Level,Id;
+    String Level, Id, doubleType;
     Session session;
     SwipeRefreshLayout swipe;
+
     public PractiseSectionFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root =  inflater.inflate(R.layout.fragment_practise_section, container, false);
+        View root = inflater.inflate(R.layout.fragment_practise_section, container, false);
         recyclerView = root.findViewById(R.id.recyclerView);
         activity = getActivity();
         session = new Session(activity);
         Level = session.getData(Constant.LEVEL);
         Id = getArguments().getString(Constant.ID);
+        doubleType = getArguments().getString("doubleType");
         swipe = root.findViewById(R.id.swipe);
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -65,10 +68,10 @@ public class PractiseSectionFragment extends Fragment {
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
-        PractisesActivity.tilte.setText(Html.fromHtml( "Practises><b>"+Level+"</b> "));
+        PractisesActivity.tilte.setText(Html.fromHtml("Practises><b>" + Level + "</b> "));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
-        session.setData(Constant.FRAG_LOCATE,Constant.SECTION_FRAG);
+        session.setData(Constant.FRAG_LOCATE, Constant.SECTION_FRAG);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -80,11 +83,10 @@ public class PractiseSectionFragment extends Fragment {
         return root;
     }
 
-    private void sectionList()
-    {
-        Log.d("TOKEN_PRACTISE",session.getData(Constant.TOKEN) + "\n"  + Id);
+    private void sectionList() {
+        Log.d("TOKEN_PRACTISE", session.getData(Constant.TOKEN) + "\n" + Id);
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.TOKEN,session.getData(Constant.TOKEN));
+        params.put(Constant.TOKEN, session.getData(Constant.TOKEN));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
                 try {
@@ -105,13 +107,21 @@ public class PractiseSectionFragment extends Fragment {
                                 break;
                             }
                         }
+                        if (doubleType !=null) {
+                            if (doubleType.equals("1")) {
+                                Section section = new Section();
+                                section.setId("0");
+                                section.setName("Doubling");
+                                section.setType("Double the number");
+                                sections.add(section);
+                            }
+                        }
 
                         sectionAdapter = new SectionAdapter(activity, sections);
                         recyclerView.setAdapter(sectionAdapter);
 
-                    }
-                    else {
-                        Toast.makeText(activity, ""+String.valueOf(jsonObject.getString(Constant.MESSAGE)), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(activity, "" + String.valueOf(jsonObject.getString(Constant.MESSAGE)), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -119,7 +129,7 @@ public class PractiseSectionFragment extends Fragment {
 
                 }
             }
-        }, activity, Constant.PRACTICE_SECTION_URL(Id), params, true,0);
+        }, activity, Constant.PRACTICE_SECTION_URL(Id), params, true, 0);
 
 
     }

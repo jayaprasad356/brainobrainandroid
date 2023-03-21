@@ -1,4 +1,5 @@
 package com.gm.brainobrain.adapter;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import com.gm.brainobrain.R;
 import com.gm.brainobrain.activities.PractisesActivity;
 import com.gm.brainobrain.fragments.AddSubNumTypeOralFragment;
 import com.gm.brainobrain.fragments.AddSubNumTypeVisualFragment;
+import com.gm.brainobrain.fragments.DoublingFragment;
+import com.gm.brainobrain.fragments.DoublingViewFragment;
 import com.gm.brainobrain.fragments.FlashCardsQuestionVisualFragment;
 import com.gm.brainobrain.helper.ApiConfig;
 import com.gm.brainobrain.helper.Constant;
@@ -52,6 +55,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.activity = activity;
         this.sections = sections;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,7 +69,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         session = new Session(activity);
         final ItemHolder holder = (ItemHolder) holderParent;
         final Section section = sections.get(position);
-        preferences=sections.get(position).getPreferences();
+        preferences = sections.get(position).getPreferences();
 
         holder.title.setText(section.getName());
         holder.subTitle.setText(section.getType());
@@ -73,10 +77,15 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showbottomsheet(section.getId(), section.getType(), section.getName(),position);
+                if (section.getName().equals("Doubling")) {
+                    DoublingViewFragment doublingViewFragment = new DoublingViewFragment();
+                    PractisesActivity.fm.beginTransaction().replace(R.id.container, doublingViewFragment, Constant.DOUBLINGVIEWFRAGMENT).commit();
+                } else
+                    showbottomsheet(section.getId(), section.getType(), section.getName(), position);
             }
         });
     }
+
     private void showbottomsheet(String id, String title, String name, int position) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         bottomSheetDialog.setContentView(R.layout.bottomsheet_lyt);
@@ -89,11 +98,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ImageView imgMan = bottomSheetDialog.findViewById(R.id.imgMan);
         ImageView imgWoman = bottomSheetDialog.findViewById(R.id.imgWoman);
 
-        if(!(sections.get(position).getPreferences().getTimeSliderEndsAt()==null &&sections.get(position).getPreferences().getTimeSliderStartAt()==null && sections.get(position).getPreferences().getTimeSliderIncrement()==null)) {
-            if(sections.get(position).getPreferences().getTimeSliderStartAt().equals(sections.get(position).getPreferences().getTimeSliderEndsAt())){
+        if (!(sections.get(position).getPreferences().getTimeSliderEndsAt() == null && sections.get(position).getPreferences().getTimeSliderStartAt() == null && sections.get(position).getPreferences().getTimeSliderIncrement() == null)) {
+            if (sections.get(position).getPreferences().getTimeSliderStartAt().equals(sections.get(position).getPreferences().getTimeSliderEndsAt())) {
                 sliderTime.setEnabled(false);
                 tvSec.setText(sections.get(position).getPreferences().getTimeSliderStartAt());
-            }else {
+            } else {
                 sliderTime.setValue(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderStartAt()));
                 sliderTime.setValueFrom(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderStartAt()));
                 sliderTime.setStepSize(Float.parseFloat(sections.get(position).getPreferences().getTimeSliderIncrement()));
@@ -128,8 +137,8 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         tvStart.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             int sec = Integer.parseInt(tvSec.getText().toString().trim());
-            int extraBuffer=2;
-            int seconds= sec+extraBuffer;
+            int extraBuffer = 2;
+            int seconds = sec + extraBuffer;
             session.setData(Constant.SECONDS, String.valueOf(seconds));
 
 
@@ -199,11 +208,11 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     JSONObject jsonObject = new JSONObject(response);
 
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        session.setData(Constant.QUESTION_ARRAY,response);
-                        if (type.equals("oral")){
+                        session.setData(Constant.QUESTION_ARRAY, response);
+                        if (type.equals("oral")) {
                             AddSubNumTypeOralFragment addSubNumTypeOralFragment = new AddSubNumTypeOralFragment();
                             addSubNumTypeOralFragment.setArguments(bundle);
-                            PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeOralFragment,Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
+                            PractisesActivity.fm.beginTransaction().add(R.id.container, addSubNumTypeOralFragment, Constant.ADDSUBNUMTYPEORALFRAGMENT).commit();
                         } else {
                             if (title.equals("Flash Cards")) {
                                 session.setData(Constant.QUES_TYPE, Constant.FLASH_CARD);
@@ -232,7 +241,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             }
-        }, activity, Constant.PRACTICE_SECTION_QUESTION_URL(session.getData(Constant.LEVEL_ID),session.getData(Constant.SECTION_ID)), params, true, 0);
+        }, activity, Constant.PRACTICE_SECTION_QUESTION_URL(session.getData(Constant.LEVEL_ID), session.getData(Constant.SECTION_ID)), params, true, 0);
     }
 
     @Override
@@ -243,6 +252,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     static class ItemHolder extends RecyclerView.ViewHolder {
 
         final TextView title, subTitle;
+
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
