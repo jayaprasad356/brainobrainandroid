@@ -161,8 +161,11 @@ public class PractisesActivity extends AppCompatActivity {
         cancelTimer();
         resetTimer();
         if (session.getData(Constant.LEVEL_NAME).equals("Level 10")){
-            DoublingFragment doublingFragment = new DoublingFragment();
-            fm.beginTransaction().replace(R.id.container, doublingFragment).commit();
+            Bundle bundle = new Bundle();
+            bundle.putString(Constant.ID, session.getData(Constant.LEVEL_ID));
+            PractiseSectionFragment practiseSectionFragment = new PractiseSectionFragment();
+            practiseSectionFragment.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.container, practiseSectionFragment).commit();
 
         }else {
             Bundle bundle = new Bundle();

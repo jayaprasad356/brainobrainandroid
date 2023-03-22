@@ -136,10 +136,14 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         tvStart.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
-            int sec = Integer.parseInt(tvSec.getText().toString().trim());
-            int extraBuffer = 2;
-            int seconds = sec + extraBuffer;
-            session.setData(Constant.SECONDS, String.valueOf(seconds));
+
+            try {
+                float seconds = Float.parseFloat(tvSec.getText().toString().trim()) + 2.0f;
+                int roundedSeconds = Math.round(seconds);
+                session.setData(Constant.SECONDS, String.valueOf(roundedSeconds));
+            } catch (NumberFormatException e) {
+                // Handle the exception by displaying an error message or using a fallback value
+            }
 
 
             session.setData(Constant.TYPE, title);

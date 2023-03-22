@@ -109,8 +109,6 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
         maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
         digitsString = session.getData(Constant.DIGITS);
-        if (!digitsString.isEmpty())
-            digits = Integer.parseInt(session.getData(Constant.DIGITS));
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
@@ -451,45 +449,49 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.answer_custom_dialog);
         Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
-        EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
-
-        etAnswer.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Do nothing
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String userInput = editable.toString();
-                if (!userInput.isEmpty() && !userInput.equals(".")) {
-                    int number = Integer.parseInt(userInput);
-
-
-                    if (digitsString.isEmpty()) {
-                        if (number >= minimum && number <= maximum) {
-                            etAnswer.setError(null); // Clear any previous error
-                        } else {
-                            if (digitsString.isEmpty())
-                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    } else {
-                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
-                            etAnswer.setError(null);
-                        } else {
-                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                            etAnswer.setText("");
-                        }
-                    }
-                }
-            }
-        });
+        etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
+        if (!digitsString.isEmpty()) {
+            digits = Integer.parseInt(session.getData(Constant.DIGITS));
+            InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(digits)};
+            etAnswer.setFilters(inputFilters);
+        }
+        //       etAnswer.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                String userInput = editable.toString();
+//                if (!userInput.isEmpty() && !userInput.equals(".")) {
+//                    int number = Integer.parseInt(userInput);
+//
+//
+//                    if (digitsString.isEmpty()) {
+//                        if (number >= minimum && number <= maximum) {
+//                            etAnswer.setError(null); // Clear any previous error
+//                        } else {
+//                            if (digitsString.isEmpty())
+//                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    } else {
+//                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+//                            etAnswer.setError(null);
+//                        } else {
+//                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+//                            etAnswer.setText("");
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
 
         Log.e("check", name);
@@ -507,6 +509,8 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
                     ShowAlertDialog();
                 } else if (etAnswer.getText().toString().trim().equals(".")) {
                     ShowAlertDialog();
+                } else if (!(answer >= minimum) || !(answer <= maximum)) {
+                    Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
                 } else {
                     if (actanswer.equals(etAnswer.getText().toString().trim())) {
                         score = score + 1;
