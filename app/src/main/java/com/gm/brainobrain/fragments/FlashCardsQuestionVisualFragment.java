@@ -70,6 +70,7 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
     CircularProgressIndicator cpbTime;
     int minimum, maximum, digits;
     int answer;
+    int noOfSeconds;
 
     public FlashCardsQuestionVisualFragment() {
         // Required empty public constructor
@@ -106,8 +107,24 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
             }
         };
 
-        minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
-        maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
+        try {
+            minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
+        } catch (NumberFormatException e) {
+            // handle the error here, e.g. show an error message or use a default value
+        }
+
+        try {
+            maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
+        } catch (NumberFormatException e) {
+            // handle the error here, e.g. show an error message or use a default value
+        }
+
+        try {
+             noOfSeconds = Integer.parseInt(seconds) * 500;
+        } catch (NumberFormatException e) {
+            // handle the error here, e.g. show an error message or use a default value
+        }
+
         digitsString = session.getData(Constant.DIGITS);
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -117,7 +134,6 @@ public class FlashCardsQuestionVisualFragment extends Fragment {
         ((PractisesActivity) requireActivity()).startTimer();
         PractisesActivity.tilte.setText(Html.fromHtml("Practises>" + Level + "><b>" + Title + "</b>"));
         quesProgress.setProgress(question);
-        int noOfSeconds = Integer.parseInt(seconds) * 500;
         PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(millisUntilFinished / 1000 + "");
