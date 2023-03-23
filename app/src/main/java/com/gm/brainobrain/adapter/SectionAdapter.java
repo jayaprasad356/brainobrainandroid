@@ -138,7 +138,8 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             bottomSheetDialog.dismiss();
 
             try {
-                float seconds = Float.parseFloat(tvSec.getText().toString().trim()) + 2.0f;
+                // removed additional 2 seconds
+                float seconds = Float.parseFloat(tvSec.getText().toString().trim());
                 int roundedSeconds = Math.round(seconds);
                 session.setData(Constant.SECONDS, String.valueOf(roundedSeconds));
             } catch (NumberFormatException e) {

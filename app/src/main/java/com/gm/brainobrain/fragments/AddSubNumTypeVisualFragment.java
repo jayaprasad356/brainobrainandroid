@@ -244,12 +244,15 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
 
     private void ShowAlertDialog() {
-        new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)
-                .setTitleText("oops")
-                .setContentText("Enter your answer")
-                .setConfirmText("ok")
-                .show();
+        if (getActivity() != null) {
+            new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)
+                    .setTitleText("oops")
+                    .setContentText("Enter your answer")
+                    .setConfirmText("ok")
+                    .show();
+        }
     }
+
 
 
     private String numberList() {
