@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.text.Html;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.developer.kalert.KAlertDialog;
 import com.gm.brainobrain.R;
@@ -56,7 +58,7 @@ public class AddSubNumTypeOralFragment extends Fragment {
     TextView tvQuestion,tvNumber;
     Session session;
     RelativeLayout rl;
-    String Level,Title,Number;
+    String Level,Title,Number,digitsString;
     private  int s = 0;
     int noOfSeconds;
     TextToSpeech tts;
@@ -68,7 +70,10 @@ public class AddSubNumTypeOralFragment extends Fragment {
     int countcomp = 0;
     CircularProgressIndicator cpbTime;
 
-
+    int minimum;
+    int maximum;
+    int digits;
+    int answer;
     public AddSubNumTypeOralFragment() {
         // Required empty public constructor
     }
@@ -99,6 +104,9 @@ public class AddSubNumTypeOralFragment extends Fragment {
                 Log.d("BACKBUTTON", "Back button clicks");
             }
         };
+        minimum = Integer.parseInt(session.getData(Constant.MINIMUM));
+        maximum = Integer.parseInt(session.getData(Constant.MAXIMUM));
+        digitsString = session.getData(Constant.DIGITS);
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
@@ -275,13 +283,21 @@ public class AddSubNumTypeOralFragment extends Fragment {
 
         EditText etAnswer = (EditText) dialog.findViewById(R.id.etAnswer);
         Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
+        if (!digitsString.isEmpty()) {
+            digits = Integer.parseInt(session.getData(Constant.DIGITS));
+            InputFilter[] inputFilters = new InputFilter[] {new InputFilter.LengthFilter(digits)};
+            etAnswer.setFilters(inputFilters);
+        }
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                answer = Integer.parseInt(etAnswer.getText().toString());
                 if(etAnswer.getText().toString().trim().isEmpty()) {
                     ShowAlertDialog();
                 }else if(etAnswer.getText().toString().trim().equals(".")) {
                     ShowAlertDialog();
+                } else if (!(answer >= minimum) || !(answer <= maximum)) {
+                    Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
                 }else {
                     dialog.dismiss();
                     if (!etAnswer.getText().toString().trim().equals("")){

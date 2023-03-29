@@ -77,7 +77,7 @@ public class CalendarActivity extends AppCompatActivity {
     private TextView tv_month;
     RecyclerView recyclerView;
     Session session;
-    private String[] month = {"January", "February", "March", "Aprial", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
