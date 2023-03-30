@@ -291,7 +291,10 @@ public class AddSubNumTypeOralFragment extends Fragment {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                answer = Integer.parseInt(etAnswer.getText().toString());
+                String answerString = etAnswer.getText().toString();
+                if (!answerString.isEmpty()) {
+                    answer = Integer.parseInt(answerString);
+                }
                 if(etAnswer.getText().toString().trim().isEmpty()) {
                     ShowAlertDialog();
                 }else if(etAnswer.getText().toString().trim().equals(".")) {
