@@ -20,9 +20,17 @@
             android:layout_gravity="center"
             android:text="@string/app_name"
             android:textSize="@dimen/_30sdp"
-            android:layout_marginVertical="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_100sdp"
             android:textColor="@color/primaryColor"
+            android:src="@drawable/tilte_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Dictation"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/grayColor"
             android:src="@drawable/tilte_logo" />
 
 
