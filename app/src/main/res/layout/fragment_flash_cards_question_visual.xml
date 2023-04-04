@@ -82,52 +82,53 @@
         android:layout_height="@dimen/_350sdp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/border7"
         android:gravity="center"
+        android:weightSum="5"
         android:orientation="horizontal"
-        android:padding="@dimen/_30sdp">
+        android:padding="@dimen/_10sdp">
 
         <LinearLayout
             android:id="@+id/lcolumn1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_258sdp"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/c1bdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c1sdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice2"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice3"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c1sdice4"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
@@ -136,44 +137,44 @@
 
         <LinearLayout
             android:id="@+id/lcolumn2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_258sdp"
             android:orientation="vertical"
-            tools:visibility="gone"
-            >
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/c2bdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c2sdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice2"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice3"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c2sdice4"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
@@ -182,43 +183,44 @@
 
         <LinearLayout
             android:id="@+id/lcolumn3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_258sdp"
             android:orientation="vertical"
             tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/c3bdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c3sdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice2"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice3"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c3sdice4"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
@@ -227,43 +229,44 @@
 
         <LinearLayout
             android:id="@+id/lcolumn4"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_258sdp"
             android:orientation="vertical"
             tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/c4bdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c4sdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice2"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice3"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c4sdice4"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
@@ -272,43 +275,44 @@
 
         <LinearLayout
             android:id="@+id/lcolumn5"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_258sdp"
             android:orientation="vertical"
             tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/c5bdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line" />
 
             <ImageView
                 android:id="@+id/c5sdice1"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice2"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice3"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
             <ImageView
                 android:id="@+id/c5sdice4"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/abacuspiece" />
 
