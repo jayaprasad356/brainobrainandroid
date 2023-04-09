@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.brainobrain" >
+    package="com.app.brainobrain">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,9 +20,12 @@
         tools:replace="android:icon"
         tools:targetApi="31">
         <activity
-            android:name="com.app.brainobrain.activities.SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" >
+            android:name=".activities.SplasTwoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,41 +33,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.brainobrain.activities.RemainderActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" >
-        </activity>
+            android:name=".activities.RemainderActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.app.brainobrain.activities.TestActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".activities.TestActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CalendarActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.app.brainobrain.activities.PractisesActivity"
+            android:name=".activities.PractisesActivity"
             android:configChanges="uiMode"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.app.brainobrain.activities.DashboardActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:name=".activities.DashboardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.app.brainobrain.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.app.brainobrain.LoginActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.app.brainobrain.MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

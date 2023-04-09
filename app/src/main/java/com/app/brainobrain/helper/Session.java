@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.app.brainobrain.LoginActivity;
+import com.app.brainobrain.activities.SplasTwoActivity;
 
 
 public class Session {
@@ -46,7 +47,7 @@ public class Session {
         editor.commit();
 
         new Session(_activity).setBoolean("is_logged_in", false);
-        Intent i = new Intent(activity, LoginActivity.class);
+        Intent i = new Intent(activity, SplasTwoActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(i);

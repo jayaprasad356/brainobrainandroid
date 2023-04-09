@@ -122,7 +122,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         digitsString = session.getData(Constant.DIGITS);
         if (!digitsString.isEmpty()) {
             digits = Integer.parseInt(session.getData(Constant.DIGITS));
-            InputFilter[] inputFilters = new InputFilter[] {new InputFilter.LengthFilter(digits)};
+            InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(digits)};
             etAnswer.setFilters(inputFilters);
 
         }
@@ -230,7 +230,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             ShowAlertDialog();
             return;
         }
-        if (!(answer>= minimum) || !(answer<= maximum) || !(etAnswer.getText().length() <= digits)) {
+        if (!(answer >= minimum) || !(answer <= maximum) || !(etAnswer.getText().length() <= digits)) {
             Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
             return;
 
@@ -266,7 +266,6 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                     .show();
         }
     }
-
 
 
     private String numberList() {
@@ -343,26 +342,27 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         String seconds;
         int question;
         LinearProgressIndicator quesProgress;
-        TextView tvQuestion,tvNumber;
+        TextView tvQuestion, tvNumber;
         Session session;
         RelativeLayout rl;
-        String Level,Title,Number,digitsString;
-        private  int s = 0;
+        String Level, Title, Number, digitsString;
+        private int s = 0;
         int noOfSeconds;
         TextToSpeech tts;
         boolean ttsspeak = false;
-        int qno = 0,qpno = 0;
+        int qno = 0, qpno = 0;
         boolean nextquestion = false;
-        int score = 0 ;
+        int score = 0;
         String actanswer;
         int countcomp = 0;
         CircularProgressIndicator cpbTime;
-        Handler handler ;
+        Handler handler;
 
         int minimum;
         int maximum;
         int digits;
         int answer;
+
         public AddSubNumTypeOralFragment() {
             // Required empty public constructor
         }
@@ -382,8 +382,8 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             seconds = session.getData(Constant.SECONDS);
             Level = session.getData(Constant.LEVEL);
             Title = session.getData(Constant.TYPE);
-            session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
-            session.setData(Constant.SCORE,"0");
+            session.setData(Constant.FRAG_LOCATE, Constant.EVENT_FRAG);
+            session.setData(Constant.SCORE, "0");
             question = getArguments().getInt("QUESTION");
 
             double d = Double.parseDouble(seconds);
@@ -402,9 +402,9 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
             requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
-            Set<String> a=new HashSet<>();
+            Set<String> a = new HashSet<>();
             a.add("male");
-            Voice v = new Voice("hi-in-x-hie-local",new Locale("hi_IN"),400,200,false,a);
+            Voice v = new Voice("hi-in-x-hie-local", new Locale("hi_IN"), 400, 200, false, a);
             tts = new TextToSpeech(activity, i -> {
                 if (i == TextToSpeech.SUCCESS) {
                     int result = tts.setLanguage(Locale.US);
@@ -419,11 +419,10 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             tts.setVoice(v);
             tts.setEngineByPackageName("com.google.android.tts");
             tvTimer.setText(seconds);
-            tvQuestion.setText("Question "+question+" of 10");
+            tvQuestion.setText("Question " + question + " of 10");
             PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
 
-
-            PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
+            PractisesActivity.tilte.setText(Html.fromHtml("Practises>" + Level + "><b>" + Title + "</b>"));
 
             quesProgress.setProgress(question);
 
@@ -440,18 +439,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             customDialog.startCountdown();
 
 
-
-
             return root;
         }
 
 
-        private void GotoActivity()
-        {
+        private void GotoActivity() {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
 
 
                     countdownTime();
@@ -460,22 +455,21 @@ public class AddSubNumTypeVisualFragment extends Fragment {
 
 
                 }
-            },10000);
+            }, 10000);
 
         }
 
 
-        private void speakNumber(String number)
-        {
+        private void speakNumber(String number) {
             boolean completed = false;
 
-            new CountDownTimer(noOfSeconds,2000) {
+            new CountDownTimer(noOfSeconds, 2000) {
                 @Override
                 public void onTick(long l) {
-                    countcomp = countcomp+1;
-                    Log.d("SPEAKCOUNTD",countcomp+"");
-                    if (countcomp < 3){
-                        tts.speak(number,TextToSpeech.QUEUE_FLUSH,null); //speak after 1000ms
+                    countcomp = countcomp + 1;
+                    Log.d("SPEAKCOUNTD", countcomp + "");
+                    if (countcomp < 3) {
+                        tts.speak(number, TextToSpeech.QUEUE_FLUSH, null); //speak after 1000ms
 
                     }
 
@@ -493,74 +487,107 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             Number = getQuestion();
             tvNumber.setText(Number);
             Random r = new Random();
-            int CustomColors = Color.argb(225 ,r.nextInt(256),r.nextInt(256),r.nextInt(256));
+            int CustomColors = Color.argb(225, r.nextInt(256), r.nextInt(256), r.nextInt(256));
             tvNumber.setTextColor(CustomColors);
-            if (ttsspeak == true){
-                tts.speak(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"),TextToSpeech.QUEUE_FLUSH,null);
-            }
-            else {
-                speakNumber(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"));
+            if (ttsspeak == true) {
+                tts.speak(Number.replaceAll("-", "less ").replaceAll("x", "multiplied by").replaceAll("/", "divided by"), TextToSpeech.QUEUE_FLUSH, null);
+            } else {
+                speakNumber(Number.replaceAll("-", "less ").replaceAll("x", "multiplied by").replaceAll("/", "divided by"));
             }
 
 
-            tvQuestion.setText("Question "+question+" of 10");
+            tvQuestion.setText("Question " + question + " of 10");
             quesProgress.setProgress(question);
 
+            if (seconds.equals("0.5")) {
+                tvTimer.setText("0.5");
+                PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 500) {
 
-            PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
-
-                public void onTick(long millisUntilFinished) {
-                    tvTimer.setText(millisUntilFinished / 1000 +"");
-                    cpbTime.setProgress(Integer.parseInt(""+millisUntilFinished / 1000));
-                }
-
-                public void onFinish() {
-                    ttsspeak = true;
-                    if (nextquestion){
-                        showDialog();
-                    }
-                    else {
-                        countdownTime();
+                    public void onTick(long millisUntilFinished) {
+                        tvTimer.setText(millisUntilFinished / 500 + "");
+                        cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 500));
                     }
 
-                }
-            }.start();
+                    public void onFinish() {
+                        ttsspeak = true;
+                        if (nextquestion) {
+                            showDialog();
+                        } else {
+                            countdownTime();
+                        }
+
+                    }
+                }.start();
+            } else if(seconds.equals("1.0")){
+                tvTimer.setText("1.0");
+                PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+                        tvTimer.setText(millisUntilFinished / 1000 + "");
+                        cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
+                    }
+
+                    public void onFinish() {
+                        ttsspeak = true;
+                        if (nextquestion) {
+                            showDialog();
+                        } else {
+                            countdownTime();
+                        }
+
+                    }
+                }.start();
+            }else  {
+                PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+                        tvTimer.setText(millisUntilFinished / 1000 + "");
+                        cpbTime.setProgress(Integer.parseInt("" + millisUntilFinished / 1000));
+                    }
+
+                    public void onFinish() {
+                        ttsspeak = true;
+                        if (nextquestion) {
+                            showDialog();
+                        } else {
+                            countdownTime();
+                        }
+
+                    }
+                }.start();
+            }
         }
 
 
-        private String getQuestion()
-        {
-            Log.d("ORALTYPE",session.getData(Constant.QUESTION_ARRAY));
+        private String getQuestion() {
+            Log.d("ORALTYPE", session.getData(Constant.QUESTION_ARRAY));
             String Question = "";
             try {
                 JSONObject jsonObject = new JSONObject(session.getData(Constant.QUESTION_ARRAY));
-                if (jsonObject.getBoolean(Constant.SUCCESS))
-                {
+                if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
                     JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                     JSONArray jsonArray1 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.QUESTION);
                     JSONArray jsonArray2 = jsonArray.getJSONObject(question - 1).getJSONArray(Constant.ANSWERS);
                     actanswer = jsonArray2.get(0).toString();
-                    if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division"))
-                    {
+                    if (session.getData(Constant.TYPE).equals("Multiplication") || session.getData(Constant.TYPE).equals("Division")) {
                         ArrayList<String> questions = new ArrayList<>();
 
                         for (int i = 0; i < jsonArray1.length(); i++) {
                             questions.add(jsonArray1.get(i).toString());
                         }
                         String symbol = "";
-                        if (session.getData(Constant.TYPE).equals("Multiplication")){
+                        if (session.getData(Constant.TYPE).equals("Multiplication")) {
                             symbol = " x ";
-                        }else if (session.getData(Constant.TYPE).equals("Division")){
+                        } else if (session.getData(Constant.TYPE).equals("Division")) {
                             symbol = " / ";
 
                         }
                         String s = "";
                         for (int i = 0; i < questions.size(); i++) {
-                            if (i != questions.size() - 1){
+                            if (i != questions.size() - 1) {
                                 s += questions.get(i) + symbol;
-                            }
-                            else {
+                            } else {
                                 s += questions.get(i) + "";
 
                             }
@@ -571,15 +598,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                         qpno = 0;
 
 
-
-                    }else {
+                    } else {
 
                         Question = jsonArray1.get(qpno).toString();
-                        if (jsonArray1.length() - 1 == qpno){
+                        if (jsonArray1.length() - 1 == qpno) {
                             nextquestion = true;
                             qpno = 0;
 
-                        }else {
+                        } else {
                             nextquestion = false;
                             qpno = qpno + 1;
                         }
@@ -598,8 +624,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         }
 
 
-        private void showDialog()
-        {
+        private void showDialog() {
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
@@ -609,7 +634,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
             if (!digitsString.isEmpty()) {
                 digits = Integer.parseInt(session.getData(Constant.DIGITS));
-                InputFilter[] inputFilters = new InputFilter[] {new InputFilter.LengthFilter(digits)};
+                InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(digits)};
                 etAnswer.setFilters(inputFilters);
             }
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -619,31 +644,31 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                     if (!answerString.isEmpty()) {
                         answer = Integer.parseInt(answerString);
                     }
-                    if(etAnswer.getText().toString().trim().isEmpty()) {
+                    if (etAnswer.getText().toString().trim().isEmpty()) {
                         ShowAlertDialog();
-                    }else if(etAnswer.getText().toString().trim().equals(".")) {
+                    } else if (etAnswer.getText().toString().trim().equals(".")) {
                         ShowAlertDialog();
                     } else if (!(answer >= minimum) || !(answer <= maximum)) {
                         Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         dialog.dismiss();
-                        if (!etAnswer.getText().toString().trim().equals("")){
-                            if (actanswer.equals(etAnswer.getText().toString().trim())){
+                        if (!etAnswer.getText().toString().trim().equals("")) {
+                            if (actanswer.equals(etAnswer.getText().toString().trim())) {
                                 score = score + 1;
-                                session.setData(Constant.SCORE,score +"");
+                                session.setData(Constant.SCORE, score + "");
                             }
 
                         }
-                        if (question == 10){
+                        if (question == 10) {
                             ((PractisesActivity) requireActivity()).resetTimer();
                             PractisesActivity.imgHome.setVisibility(View.VISIBLE);
                             Bundle bundle = new Bundle();
                             bundle.putString("SECONDS", seconds);
                             ResultFragment resultFragment = new ResultFragment();
                             resultFragment.setArguments(bundle);
-                            PractisesActivity.fm.beginTransaction().replace(R.id.container,  resultFragment,Constant.RESULTFRAGMENT).commit();
+                            PractisesActivity.fm.beginTransaction().replace(R.id.container, resultFragment, Constant.RESULTFRAGMENT).commit();
 
-                        }else {
+                        } else {
                             question = question + 1;
                             countdownTime();
 
@@ -653,13 +678,12 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                     }
 
 
-
-
                 }
             });
 
             dialog.show();
         }
+
         private void ShowAlertDialog() {
             new KAlertDialog(requireActivity(), KAlertDialog.WARNING_TYPE)
                     .setTitleText("oops")
@@ -743,7 +767,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             }
 
             try {
-                 noOfSeconds = Integer.parseInt(seconds) * 500;
+                noOfSeconds = Integer.parseInt(seconds) * 500;
             } catch (NumberFormatException e) {
                 // handle the error here, e.g. show an error message or use a default value
             }
@@ -1095,42 +1119,42 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                 etAnswer.setFilters(inputFilters);
             }
             //       etAnswer.addTextChangedListener(new TextWatcher() {
-    //            @Override
-    //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    //                // Do nothing
-    //            }
-    //
-    //            @Override
-    //            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    //                // Do nothing
-    //            }
-    //
-    //            @Override
-    //            public void afterTextChanged(Editable editable) {
-    //                String userInput = editable.toString();
-    //                if (!userInput.isEmpty() && !userInput.equals(".")) {
-    //                    int number = Integer.parseInt(userInput);
-    //
-    //
-    //                    if (digitsString.isEmpty()) {
-    //                        if (number >= minimum && number <= maximum) {
-    //                            etAnswer.setError(null); // Clear any previous error
-    //                        } else {
-    //                            if (digitsString.isEmpty())
-    //                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-    //                            etAnswer.setText("");
-    //                        }
-    //                    } else {
-    //                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
-    //                            etAnswer.setError(null);
-    //                        } else {
-    //                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
-    //                            etAnswer.setText("");
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        });
+            //            @Override
+            //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            //                // Do nothing
+            //            }
+            //
+            //            @Override
+            //            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            //                // Do nothing
+            //            }
+            //
+            //            @Override
+            //            public void afterTextChanged(Editable editable) {
+            //                String userInput = editable.toString();
+            //                if (!userInput.isEmpty() && !userInput.equals(".")) {
+            //                    int number = Integer.parseInt(userInput);
+            //
+            //
+            //                    if (digitsString.isEmpty()) {
+            //                        if (number >= minimum && number <= maximum) {
+            //                            etAnswer.setError(null); // Clear any previous error
+            //                        } else {
+            //                            if (digitsString.isEmpty())
+            //                                Toast.makeText(activity, "Please enter a number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+            //                            etAnswer.setText("");
+            //                        }
+            //                    } else {
+            //                        if (number >= minimum && number <= maximum && userInput.length() <= digits) {
+            //                            etAnswer.setError(null);
+            //                        } else {
+            //                            Toast.makeText(activity, "Please enter a " + digits + " digits number between" + minimum + " to " + maximum + "", Toast.LENGTH_SHORT).show();
+            //                            etAnswer.setText("");
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        });
 
 
             Log.e("check", name);
@@ -1144,7 +1168,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
                 public void onClick(View v) {
                     String answerString = etAnswer.getText().toString();
                     if (!answerString.isEmpty()) {
-                         answer = Integer.parseInt(answerString);
+                        answer = Integer.parseInt(answerString);
                     }
                     if (etAnswer.getText().toString().trim().isEmpty()) {
                         ShowAlertDialog();
