@@ -89,7 +89,7 @@
             android:fontFamily="@font/brainx"
             android:gravity="center"
             android:padding="@dimen/_10sdp"
-            android:text="5"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_60sdp"
             android:textStyle="bold" />

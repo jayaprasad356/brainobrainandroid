@@ -2,6 +2,7 @@ package com.app.brainobrain.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.text.Html;
@@ -28,6 +30,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.brainobrain.CustomDialog;
+import com.app.brainobrain.LoginActivity;
+import com.app.brainobrain.activities.DashboardActivity;
 import com.developer.kalert.KAlertDialog;
 import com.app.brainobrain.R;
 import com.app.brainobrain.activities.PractisesActivity;
@@ -352,6 +357,7 @@ public class AddSubNumTypeVisualFragment extends Fragment {
         String actanswer;
         int countcomp = 0;
         CircularProgressIndicator cpbTime;
+        Handler handler ;
 
         int minimum;
         int maximum;
@@ -379,7 +385,10 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             session.setData(Constant.FRAG_LOCATE,Constant.EVENT_FRAG);
             session.setData(Constant.SCORE,"0");
             question = getArguments().getInt("QUESTION");
-            cpbTime.setMax(Integer.parseInt(seconds));
+
+            double d = Double.parseDouble(seconds);
+
+            cpbTime.setMax((int) d);
             OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
                 @Override
                 public void handleOnBackPressed() {
@@ -412,17 +421,47 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             tvTimer.setText(seconds);
             tvQuestion.setText("Question "+question+" of 10");
             PractisesActivity.imgHome.setVisibility(View.INVISIBLE);
-            ((PractisesActivity) requireActivity()).startTimer();
+
 
             PractisesActivity.tilte.setText(Html.fromHtml( "Practises>"+Level+"><b>"+Title+"</b>"));
 
             quesProgress.setProgress(question);
 
-            noOfSeconds = Integer.parseInt(seconds) * 1000;
+            noOfSeconds = (int) (d * 1000);
 
-            countdownTime();
+            handler = new Handler();
+            GotoActivity();
+
+            getQuestion();
+
+
+            CustomDialog customDialog = new CustomDialog(getActivity());
+            customDialog.show();
+            customDialog.startCountdown();
+
+
+
 
             return root;
+        }
+
+
+        private void GotoActivity()
+        {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+
+
+                    countdownTime();
+
+                    ((PractisesActivity) requireActivity()).startTimer();
+
+
+                }
+            },10000);
+
         }
 
 
@@ -456,12 +495,14 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             Random r = new Random();
             int CustomColors = Color.argb(225 ,r.nextInt(256),r.nextInt(256),r.nextInt(256));
             tvNumber.setTextColor(CustomColors);
-            if (ttsspeak){
+            if (ttsspeak == true){
                 tts.speak(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"),TextToSpeech.QUEUE_FLUSH,null);
             }
             else {
                 speakNumber(Number.replaceAll("-","less ").replaceAll("x","multiplied by").replaceAll("/","divided by"));
             }
+
+
             tvQuestion.setText("Question "+question+" of 10");
             quesProgress.setProgress(question);
 
