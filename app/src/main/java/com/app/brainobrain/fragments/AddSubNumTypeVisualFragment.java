@@ -1088,7 +1088,11 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             tvTimer.setText(seconds);
             tvQuestion.setText("Question " + question + " of 10");
             quesProgress.setProgress(question);
-            int noOfSeconds = Integer.parseInt(seconds) * 500;
+            double d = Double.parseDouble(seconds);
+
+            int noOfSeconds ;
+            noOfSeconds = (int) (d * 1000);
+
             PractisesActivity.cTimer = new CountDownTimer(noOfSeconds, 1000) {
 
                 public void onTick(long millisUntilFinished) {
