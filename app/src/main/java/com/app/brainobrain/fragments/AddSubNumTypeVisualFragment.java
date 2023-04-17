@@ -767,7 +767,11 @@ public class AddSubNumTypeVisualFragment extends Fragment {
             }
 
             try {
-                noOfSeconds = Integer.parseInt(seconds) * 500;
+
+                double d = Double.parseDouble(seconds);
+
+                noOfSeconds = (int) (d * 1000);
+
             } catch (NumberFormatException e) {
                 // handle the error here, e.g. show an error message or use a default value
             }
